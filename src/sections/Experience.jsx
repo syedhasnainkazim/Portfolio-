@@ -62,7 +62,7 @@ export default function Experience() {
         </motion.p>
 
         {/* TIMELINE */}
-        <div style={{ position: "relative", maxWidth: "860px", marginTop: "40px" }}>
+        <div className="experience-timeline" style={{ position: "relative", maxWidth: "860px", marginTop: "40px" }}>
 
           {/* Vertical line — sits at x=22, exactly behind each dot center */}
           <div style={{

@@ -27,6 +27,7 @@ export default function Navbar() {
 
   return (
     <div
+      className="nav-pill"
       style={{
         position: "fixed",
         top: 20,

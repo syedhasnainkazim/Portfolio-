@@ -263,3 +263,99 @@ a:hover {
   border-color: rgba(255,255,255,0.28);
   transform: translateY(-2px);
 }
+
+/* =========================
+   📱 MOBILE RESPONSIVE
+========================= */
+
+/* ── Touch devices: restore normal cursor ── */
+@media (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-ring { display: none !important; }
+  * { cursor: auto !important; }
+}
+
+/* ── Tablet + mobile (≤768px) ── */
+@media (max-width: 768px) {
+  .section {
+    padding: 72px 20px;
+  }
+
+  .section-subtitle {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  /* Navbar — scrollable pill */
+  .nav-pill {
+    max-width: calc(100vw - 24px) !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 14px !important;
+    gap: 2px !important;
+    top: 12px !important;
+  }
+  .nav-pill::-webkit-scrollbar { display: none; }
+  .nav-pill a {
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap;
+  }
+
+  /* About — stack columns */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+  .about-photos { display: none !important; }
+
+  /* Projects — single column */
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Experience — tighten timeline */
+  .experience-timeline {
+    max-width: 100% !important;
+  }
+
+  /* Skills — horizontal scroll */
+  .skills-scroll-wrapper {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin: 0 -20px;
+    padding: 0 20px;
+  }
+  .skills-scroll-wrapper::-webkit-scrollbar { display: none; }
+  .skills-map {
+    min-width: 700px !important;
+    width: 700px !important;
+    padding-bottom: 0 !important;
+    height: 436px !important;
+  }
+  .skills-map > div {
+    position: relative !important;
+  }
+
+  /* Contact — stack */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Small mobile (≤480px) ── */
+@media (max-width: 480px) {
+  .section {
+    padding: 60px 16px;
+  }
+
+  .nav-pill a {
+    font-size: 11px !important;
+    padding: 4px 9px !important;
+  }
+}

@@ -125,6 +125,7 @@ export default function Skills() {
         </motion.p>
 
         {/* ── MAP CANVAS ── */}
+        <div className="skills-scroll-wrapper">
         <motion.div
           className="skills-map"
           initial={{ opacity: 0 }}
@@ -274,6 +275,7 @@ export default function Skills() {
             })}
           </div>
         </motion.div>
+        </div>
 
         {/* LEGEND */}
         <motion.div
