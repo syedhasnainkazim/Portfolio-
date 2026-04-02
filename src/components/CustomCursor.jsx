@@ -76,6 +76,7 @@ export default function CustomCursor() {
       {/* Dot — snaps instantly to cursor */}
       <div
         ref={dotRef}
+        className="custom-cursor-dot"
         style={{
           position: "fixed",
           top: 0, left: 0,
@@ -95,6 +96,7 @@ export default function CustomCursor() {
       {/* Ring — lags behind with lerp */}
       <div
         ref={ringRef}
+        className="custom-cursor-ring"
         style={{
           position: "fixed",
           top: 0, left: 0,

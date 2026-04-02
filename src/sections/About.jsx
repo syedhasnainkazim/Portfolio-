@@ -150,6 +150,7 @@ export default function About() {
 
           {/* RIGHT — PHOTOS */}
           <motion.div
+            className="about-photos"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -209,13 +210,6 @@ export default function About() {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 700px) {
-          .about-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

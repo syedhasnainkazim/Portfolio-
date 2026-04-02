@@ -182,6 +182,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.62 }}
+            className="hero-stats"
             style={{ display: "flex", gap: "36px" }}
           >
             {STATS.map((s, i) => (
@@ -201,6 +202,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.72 }}
+            className="hero-ctas"
             style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}
           >
             <a href="#projects" style={{ textDecoration: "none" }}>
@@ -289,8 +291,19 @@ export default function Hero() {
           50%     { opacity:0.5; transform:scale(0.82); }
         }
         @media (max-width: 900px) {
-          .hero-grid { grid-template-columns: 1fr !important; padding: 80px 24px !important; }
-          .hero-grid > div:last-child { display: none; }
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            padding: 100px 24px 60px !important;
+            gap: 0 !important;
+          }
+          .hero-grid > div:last-child { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-grid {
+            padding: 90px 16px 50px !important;
+          }
+          .hero-stats { gap: 22px !important; }
+          .hero-ctas  { gap: 10px !important; }
         }
       `}</style>
     </section>
