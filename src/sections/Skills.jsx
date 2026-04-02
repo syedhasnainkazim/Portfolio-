@@ -92,9 +92,9 @@ function edgePath(a, b) {
 
 // ─── BRANCH LABELS ───────────────────────────────────────────────────────────
 const BRANCH_LABELS = [
-  { text: "Systems & Low-level", x: 320, y: 18,  anchor: "middle" },
-  { text: "Web Development",     x: 320, y: 256, anchor: "middle" },
-  { text: "Data & Science",      x: 320, y: 440, anchor: "middle" },
+  { text: "Systems & Low-level", x: 80,  y: 22,  anchor: "start" },
+  { text: "Web Development",     x: 80,  y: 258, anchor: "start" },
+  { text: "Data & Science",      x: 80,  y: 442, anchor: "start" },
 ];
 
 // ─── COMPONENT ───────────────────────────────────────────────────────────────
@@ -145,25 +145,9 @@ export default function Skills() {
             <svg
               viewBox={`0 0 ${W} ${H}`}
               preserveAspectRatio="xMidYMid meet"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible" }}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
             >
-              {/* Branch labels */}
-              {BRANCH_LABELS.map((lbl, i) => (
-                <text
-                  key={i}
-                  x={lbl.x} y={lbl.y}
-                  textAnchor={lbl.anchor}
-                  fill="rgba(255,255,255,0.14)"
-                  fontSize="10"
-                  fontFamily="monospace"
-                  letterSpacing="1.5"
-                  textTransform="uppercase"
-                >
-                  {lbl.text.toUpperCase()}
-                </text>
-              ))}
-
-              {/* Edges */}
+              {/* Edges — rendered first so labels sit on top */}
               {EDGES.map((edge, i) => {
                 const a = nodeMap[edge.from];
                 const b = nodeMap[edge.to];
@@ -172,9 +156,9 @@ export default function Skills() {
                   <motion.path
                     key={i}
                     d={edgePath(a, b)}
-                    stroke={`${a.color}55`}
-                    strokeWidth={1.5}
-                    strokeDasharray="5 9"
+                    stroke={`${a.color}99`}
+                    strokeWidth={2}
+                    strokeDasharray="6 8"
                     fill="none"
                     strokeLinecap="round"
                     initial={{ opacity: 0 }}
@@ -184,6 +168,21 @@ export default function Skills() {
                   />
                 );
               })}
+
+              {/* Branch labels — rendered AFTER edges so they appear on top */}
+              {BRANCH_LABELS.map((lbl, i) => (
+                <text
+                  key={i}
+                  x={lbl.x} y={lbl.y}
+                  textAnchor={lbl.anchor}
+                  fill="rgba(255,255,255,0.22)"
+                  fontSize="10"
+                  fontFamily="monospace"
+                  letterSpacing="1.5"
+                >
+                  {lbl.text.toUpperCase()}
+                </text>
+              ))}
             </svg>
 
             {/* ── SKILL NODES ── */}
