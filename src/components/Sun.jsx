@@ -126,6 +126,7 @@ export default function Sun() {
 
   return (
     <div
+      className="sun-wrap"
       style={{
         position: "absolute",
         top: "50%",

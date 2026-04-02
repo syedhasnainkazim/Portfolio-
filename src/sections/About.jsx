@@ -159,6 +159,7 @@ export default function About() {
           >
             {/* Profile Photo */}
             <div
+              className="about-profile-photo"
               style={{
                 borderRadius: "16px",
                 overflow: "hidden",
@@ -183,6 +184,7 @@ export default function About() {
 
             {/* NJIT Photo */}
             <div
+              className="about-school-photo"
               style={{
                 borderRadius: "12px",
                 overflow: "hidden",
