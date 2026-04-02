@@ -1,0 +1,103 @@
+/* =========================
+   🌌 SECTION VISUAL STYLE
+   (pairs with index.css layout)
+========================= */
+
+.section {
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(255,255,255,0.03),
+    transparent 70%
+  );
+  border-radius: 30px;
+}
+
+/* divider line between sections */
+
+.section::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.1),
+    transparent
+  );
+  transform: translateX(-50%);
+}
+
+/* =========================
+   📦 CONTENT CONTAINER
+========================= */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* =========================
+   🏷️ SECTION HEADERS
+========================= */
+
+.section-title {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  color: #aaa;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+/* =========================
+   🎯 BUTTONS
+========================= */
+
+.primary-btn {
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(59,130,246,0.35);
+}
+
+.secondary-btn {
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.02);
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* =========================
+   📱 RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .section {
+    padding: 80px 20px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+}
