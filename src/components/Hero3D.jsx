@@ -1,31 +1,72 @@
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Stars, useGLTF } from "@react-three/drei";
+import { Stars } from "@react-three/drei";
 import * as THREE from "three";
 
-// ── Real asteroid model ───────────────────────────────────────────────────────
+// ── Procedural asteroid — elongated, cratered, rocky ─────────────────────────
 function Asteroid({ mouse }) {
   const groupRef = useRef();
-  const { scene } = useGLTF("/models/asteroid.glb");
 
-  // Clone so we can modify materials without affecting the cached original
-  const model = useMemo(() => {
-    const cloned = scene.clone(true);
-    cloned.traverse((child) => {
-      if (child.isMesh) {
-        child.material = new THREE.MeshStandardMaterial({
-          color:             "#b0a89a",
-          roughness:         1.0,
-          metalness:         0.0,
-          emissive:          new THREE.Color("#1a1612"),
-          emissiveIntensity: 0.1,
-        });
-        child.castShadow    = true;
-        child.receiveShadow = true;
+  const geometry = useMemo(() => {
+    const geo = new THREE.SphereGeometry(1.0, 64, 64);
+    const pos = geo.attributes.position;
+
+    const rng = (n) => {
+      let v = Math.sin(n * 91.3279) * 43758.5453;
+      return v - Math.floor(v);
+    };
+
+    for (let i = 0; i < pos.count; i++) {
+      let x = pos.getX(i);
+      let y = pos.getY(i);
+      let z = pos.getZ(i);
+
+      // Elongate into potato / oblong shape
+      x *= 1.55;
+      y *= 0.82;
+      z *= 1.10;
+
+      // Large-scale surface lumps
+      const lump =
+        Math.sin(x * 2.3 + y * 1.8) * 0.22 +
+        Math.sin(y * 3.1 + z * 2.4) * 0.18 +
+        Math.sin(z * 2.7 + x * 3.3) * 0.15 +
+        Math.sin(x * 4.9 + z * 1.9) * 0.10 +
+        Math.cos(y * 5.1 + x * 2.2) * 0.08;
+
+      // Fine surface roughness
+      const rough =
+        (rng(i * 5)     - 0.5) * 0.14 +
+        (rng(i * 5 + 1) - 0.5) * 0.09 +
+        (rng(i * 5 + 2) - 0.5) * 0.05;
+
+      // Deep bowl-shaped craters
+      const craters = [
+        { cx:  0.8, cy:  0.5, cz:  0.3, r: 0.30, depth: 1.8 },
+        { cx: -0.7, cy: -0.3, cz:  0.6, r: 0.24, depth: 1.5 },
+        { cx:  0.2, cy:  0.9, cz: -0.4, r: 0.20, depth: 1.4 },
+        { cx: -0.4, cy: -0.8, cz: -0.5, r: 0.18, depth: 1.3 },
+        { cx:  0.6, cy: -0.6, cz:  0.7, r: 0.16, depth: 1.2 },
+        { cx: -0.9, cy:  0.4, cz: -0.2, r: 0.22, depth: 1.4 },
+        { cx:  0.1, cy: -0.2, cz: -0.9, r: 0.14, depth: 1.1 },
+      ];
+      let craterDent = 0;
+      for (const c of craters) {
+        const dist = Math.sqrt((x - c.cx) ** 2 + (y - c.cy) ** 2 + (z - c.cz) ** 2);
+        if (dist < c.r) {
+          craterDent -= c.depth * Math.pow(1 - dist / c.r, 2) * 0.28;
+        }
       }
-    });
-    return cloned;
-  }, [scene]);
+
+      const len = Math.sqrt(x * x + y * y + z * z);
+      const r = len + lump + rough + craterDent;
+      const nx = x / len, ny = y / len, nz = z / len;
+      pos.setXYZ(i, nx * r, ny * r, nz * r);
+    }
+
+    geo.computeVertexNormals();
+    return geo;
+  }, []);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -39,15 +80,23 @@ function Asteroid({ mouse }) {
   });
 
   return (
-    <group ref={groupRef} scale={[0.012, 0.012, 0.012]}>
-      <primitive object={model} />
+    <group ref={groupRef}>
+      <mesh geometry={geometry}>
+        <meshStandardMaterial
+          color="#b0a89a"
+          roughness={1.0}
+          metalness={0.0}
+          emissive="#1a1612"
+          emissiveIntensity={0.12}
+        />
+      </mesh>
 
       {/* Orbit rings */}
-      <mesh rotation={[Math.PI / 2.1, 0.25, 0.15]} scale={[85, 85, 85]}>
+      <mesh rotation={[Math.PI / 2.1, 0.25, 0.15]}>
         <torusGeometry args={[2.4, 0.007, 4, 120]} />
         <meshBasicMaterial color="#818cf8" transparent opacity={0.18} />
       </mesh>
-      <mesh rotation={[Math.PI / 3.2, Math.PI / 4.5, 0.3]} scale={[85, 85, 85]}>
+      <mesh rotation={[Math.PI / 3.2, Math.PI / 4.5, 0.3]}>
         <torusGeometry args={[2.85, 0.005, 4, 120]} />
         <meshBasicMaterial color="#60a5fa" transparent opacity={0.10} />
       </mesh>
@@ -55,7 +104,7 @@ function Asteroid({ mouse }) {
   );
 }
 
-// ── Dust/debris particle field ────────────────────────────────────────────────
+// ── Debris particle field ─────────────────────────────────────────────────────
 function Debris() {
   const pointsRef = useRef();
 
@@ -118,5 +167,3 @@ export default function Hero3D({ mouse }) {
     </Canvas>
   );
 }
-
-useGLTF.preload("/models/asteroid.glb");
