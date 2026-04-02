@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#05050f"/>
+      <stop offset="100%" stop-color="#0d0d2a"/>
+    </linearGradient>
+    <linearGradient id="skGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#b060f7"/>
+      <stop offset="45%"  stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="nameGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#ffffff"/>
+      <stop offset="50%"  stop-color="#93c5fd"/>
+      <stop offset="100%" stop-color="#a5b4fc"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="logoGlow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Purple glow blob center-left -->
+  <ellipse cx="340" cy="315" rx="280" ry="220" fill="#7c3aed" opacity="0.08" filter="url(#glow)"/>
+  <!-- Blue glow blob right -->
+  <ellipse cx="900" cy="315" rx="200" ry="160" fill="#3b82f6" opacity="0.06" filter="url(#glow)"/>
+
+  <!-- Border frame -->
+  <rect x="32" y="32" width="1136" height="566" rx="24" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+
+  <!-- {SK} Logo mark — left side -->
+  <text
+    x="300" y="370"
+    text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="220"
+    font-weight="800"
+    fill="url(#skGrad)"
+    filter="url(#logoGlow)"
+    letter-spacing="-4"
+    opacity="0.95"
+  >{SK}</text>
+
+  <!-- Divider line -->
+  <line x1="560" y1="160" x2="560" y2="470" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+
+  <!-- Right side — text content -->
+  <!-- Tag line -->
+  <text x="630" y="210" font-family="-apple-system, sans-serif" font-size="18" fill="#60a5fa" letter-spacing="3" opacity="0.9">SOFTWARE ENGINEER</text>
+
+  <!-- Name -->
+  <text x="630" y="300" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="72" font-weight="800" fill="url(#nameGrad)" letter-spacing="-2">Syed Kazim</text>
+
+  <!-- Description -->
+  <text x="630" y="358" font-family="-apple-system, sans-serif" font-size="22" fill="rgba(255,255,255,0.45)">Full Stack Developer · Data Analyst</text>
+  <text x="630" y="392" font-family="-apple-system, sans-serif" font-size="22" fill="rgba(255,255,255,0.45)">Backend Architect · New Jersey</text>
+
+  <!-- URL badge -->
+  <rect x="630" y="430" width="310" height="42" rx="21" fill="rgba(96,165,250,0.1)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+  <text x="785" y="457" text-anchor="middle" font-family="monospace" font-size="17" fill="rgba(96,165,250,0.85)">syedhasnainkazim.com</text>
+</svg>
