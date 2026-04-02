@@ -106,14 +106,15 @@ export default function Contact() {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1.1fr",
-            gap: "52px",
+            gap: "40px",
             marginTop: "32px",
             alignItems: "start",
+            width: "100%",
           }}
         >
 
           {/* ── LEFT — INFO ── */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px", minWidth: 0 }}>
 
             {/* Availability badge */}
             <motion.div
@@ -211,8 +212,8 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
-            className="glass"
-            style={{ padding: "32px 30px" }}
+            className="glass contact-form-card"
+            style={{ padding: "32px 30px", minWidth: 0 }}
           >
             <h3 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "24px", color: "rgba(255,255,255,0.9)" }}>
               Send a message
@@ -272,6 +273,7 @@ export default function Contact() {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
+                className="contact-send-btn"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -346,17 +348,26 @@ export default function Contact() {
         .contact-grid textarea {
           outline: none;
           transition: border-color 0.2s ease, box-shadow 0.2s ease;
+          width: 100%;
+          box-sizing: border-box;
         }
         .contact-grid input:focus,
         .contact-grid textarea:focus {
           box-shadow: 0 0 0 3px rgba(96,165,250,0.12);
         }
-        @media (max-width: 760px) {
+        @media (max-width: 768px) {
           .contact-grid {
             grid-template-columns: 1fr !important;
+            gap: 24px !important;
           }
           .form-row {
             grid-template-columns: 1fr !important;
+          }
+          .contact-form-card {
+            padding: 22px 16px !important;
+          }
+          .contact-send-btn {
+            width: 100%;
           }
         }
       `}</style>
