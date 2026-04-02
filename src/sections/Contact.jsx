@@ -25,7 +25,7 @@ const CONTACT_LINKS = [
     icon: FaLinkedin,
     label: "LinkedIn",
     value: "linkedin.com/in/syedkazim",
-    href: "https://linkedin.com/in/syedkazim",
+    href: "https://www.linkedin.com/in/syed-hasnain-kazim1",
     color: "#38bdf8",
     glow: "rgba(56,189,248,0.25)",
   },

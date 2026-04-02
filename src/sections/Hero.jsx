@@ -8,7 +8,7 @@ import Sun from "../components/Sun";
 import Hero3D from "../components/Hero3D";
 
 const STATS = [
-  { value: "2+",  label: "Yrs Experience" },
+  { value: "7+",  label: "Yrs Experience" },
   { value: "10+", label: "Projects Built"  },
   { value: "2",   label: "Companies"       },
 ];
@@ -16,7 +16,7 @@ const STATS = [
 const SOCIALS = [
   { href: "mailto:syedhasnainkazim@gmail.com",   Icon: MdEmail,    label: "Email"    },
   { href: "https://github.com/syedhasnainkazim", Icon: FaGithub,   label: "GitHub"   },
-  { href: "https://linkedin.com/in/syedkazim",   Icon: FaLinkedin, label: "LinkedIn" },
+  { href: "https://www.linkedin.com/in/syed-hasnain-kazim1", Icon: FaLinkedin, label: "LinkedIn" },
 ];
 
 export default function Hero() {

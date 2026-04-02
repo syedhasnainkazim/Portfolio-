@@ -64,12 +64,12 @@ export default function Experience() {
         {/* TIMELINE */}
         <div style={{ position: "relative", maxWidth: "860px", marginTop: "40px" }}>
 
-          {/* Vertical line */}
+          {/* Vertical line — sits at x=22, exactly behind each dot center */}
           <div style={{
             position: "absolute",
             left: "22px", top: 0, bottom: 0,
             width: "2px",
-            background: "linear-gradient(to bottom, rgba(96,165,250,0.4), rgba(165,180,252,0.15), transparent)",
+            background: "linear-gradient(to bottom, rgba(96,165,250,0.5), rgba(165,180,252,0.3), rgba(165,180,252,0.1))",
           }} />
 
           {experiences.map((exp, index) => (
@@ -79,18 +79,19 @@ export default function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: index * 0.15 }}
               viewport={{ once: true }}
-              style={{ display: "flex", gap: "24px", marginBottom: "36px", position: "relative" }}
+              style={{ display: "flex", gap: "24px", marginBottom: "40px", position: "relative" }}
             >
-              {/* Dot */}
+              {/* Dot — centered on the vertical line (line left=22, dot width=16, so marginLeft=14 centers it) */}
               <div style={{
                 width: "16px", height: "16px",
                 borderRadius: "50%",
                 background: exp.color,
-                marginTop: "22px",
-                marginLeft: "15px",
+                marginTop: "26px",
+                marginLeft: "14px",
                 flexShrink: 0,
+                zIndex: 2,
                 boxShadow: `0 0 14px 4px ${exp.color}55`,
-                border: "2px solid rgba(255,255,255,0.2)",
+                border: "2px solid rgba(255,255,255,0.25)",
               }} />
 
               {/* Card */}
