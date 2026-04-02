@@ -277,22 +277,23 @@ a:hover {
 
 /* ── Tablet + mobile (≤768px) ── */
 @media (max-width: 768px) {
+
+  /* Sections */
   .section {
     padding: 72px 20px;
   }
-
   .section-subtitle {
     font-size: 14px;
     max-width: 100%;
   }
 
-  /* Navbar — scrollable pill */
+  /* ── Navbar: scrollable pill, no overflow ── */
   .nav-pill {
     max-width: calc(100vw - 24px) !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 8px 14px !important;
+    padding: 8px 12px !important;
     gap: 2px !important;
     top: 12px !important;
   }
@@ -303,48 +304,64 @@ a:hover {
     white-space: nowrap;
   }
 
-  /* About — stack columns */
+  /* ── Hero: push Sun off-screen so it doesn't cover text ── */
+  .sun-wrap {
+    right: -420px !important;
+    width: 400px !important;
+    height: 400px !important;
+  }
+
+  /* ── About: stack, show photos below bio ── */
   .about-grid {
     grid-template-columns: 1fr !important;
-    gap: 28px !important;
+    gap: 24px !important;
   }
-  .about-photos { display: none !important; }
+  .about-photos {
+    display: flex !important;
+  }
+  .about-profile-photo {
+    height: 280px !important;
+  }
+  .about-school-photo {
+    height: 140px !important;
+  }
 
-  /* Projects — single column */
+  /* ── Projects: single column ── */
   .projects-grid {
     grid-template-columns: 1fr !important;
   }
 
-  /* Experience — tighten timeline */
+  /* ── Experience: full width ── */
   .experience-timeline {
     max-width: 100% !important;
   }
 
-  /* Skills — horizontal scroll */
+  /* ── Skills: horizontal scroll at full 900px width ── */
   .skills-scroll-wrapper {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     margin: 0 -20px;
-    padding: 0 20px;
+    padding: 0 20px 8px;
+    padding-bottom: 8px;
   }
   .skills-scroll-wrapper::-webkit-scrollbar { display: none; }
   .skills-map {
-    min-width: 700px !important;
-    width: 700px !important;
-    padding-bottom: 0 !important;
-    height: 436px !important;
-  }
-  .skills-map > div {
-    position: relative !important;
+    min-width: 860px !important;
+    width: 860px !important;
+    max-width: none !important;
   }
 
-  /* Contact — stack */
+  /* ── Contact: stack columns, fix overflow ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
+    gap: 28px !important;
   }
   .form-row {
     grid-template-columns: 1fr !important;
+  }
+  .contact-grid .glass {
+    padding: 24px 18px !important;
   }
 }
 
@@ -353,9 +370,15 @@ a:hover {
   .section {
     padding: 60px 16px;
   }
-
   .nav-pill a {
     font-size: 11px !important;
     padding: 4px 9px !important;
+  }
+  .sun-wrap {
+    display: none !important;
+  }
+  .skills-map {
+    min-width: 780px !important;
+    width: 780px !important;
   }
 }
