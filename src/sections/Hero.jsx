@@ -71,7 +71,7 @@ export default function Hero() {
           position: "relative",
           zIndex: 2,
           width: "100%",
-          maxWidth: "1100px",
+          maxWidth: "1200px",
           margin: "0 auto",
           padding: "100px 40px",
           display: "grid",
