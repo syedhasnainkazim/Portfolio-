@@ -190,8 +190,12 @@ export default function About() {
                 overflow: "hidden",
                 border: "1px solid rgba(255,255,255,0.08)",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
-                height: "200px",
-                background: "#0a0a0a",
+                height: "160px",
+                background: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "24px 40px",
               }}
             >
               <img
@@ -203,7 +207,6 @@ export default function About() {
                   display: "block",
                   objectFit: "contain",
                   objectPosition: "center center",
-                  imageRendering: "auto",
                 }}
               />
             </div>
