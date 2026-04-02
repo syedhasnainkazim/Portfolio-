@@ -83,11 +83,11 @@ function Asteroid({ mouse }) {
     <group ref={groupRef}>
       <mesh geometry={geometry}>
         <meshStandardMaterial
-          color="#b0a89a"
-          roughness={1.0}
+          color="#c8bfb2"
+          roughness={0.92}
           metalness={0.0}
-          emissive="#1a1612"
-          emissiveIntensity={0.12}
+          emissive="#3d3028"
+          emissiveIntensity={0.25}
         />
       </mesh>
 
@@ -143,10 +143,10 @@ function Debris() {
 function Scene({ mouse }) {
   return (
     <>
-      <ambientLight intensity={0.25} />
-      <pointLight position={[7,  4,  3]} intensity={5.0} color="#fff5e8" />
-      <pointLight position={[-4, -2, 1]} intensity={0.7} color="#c8d8ff" />
-      <pointLight position={[0,  0, -5]} intensity={0.4} color="#8b9fff" />
+      <ambientLight intensity={0.9} />
+      <pointLight position={[7,  4,  3]} intensity={4.0} color="#fff5e8" />
+      <pointLight position={[-4, -2, 2]} intensity={1.8} color="#c8d8ff" />
+      <pointLight position={[0,  3, -4]} intensity={1.2} color="#ffffff" />
       <Stars radius={40} depth={30} count={800} factor={2} fade speed={0.5} />
       <Debris />
       <Asteroid mouse={mouse} />
