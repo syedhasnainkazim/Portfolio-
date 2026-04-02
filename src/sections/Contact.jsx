@@ -158,7 +158,6 @@ export default function Contact() {
                   transition={{ duration: 0.45, delay: i * 0.08 }}
                   viewport={{ once: true }}
                   whileHover={link.href ? {
-                    y: -3,
                     boxShadow: `0 8px 30px ${link.glow}`,
                     borderColor: link.color + "44",
                   } : {}}
