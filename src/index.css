@@ -267,6 +267,37 @@ a:hover {
 }
 
 /* =========================
+   ♿ KEYBOARD / FOCUS STATES
+========================= */
+
+/* Hide default outline for mouse users; show clean ring for keyboard */
+:focus { outline: none; }
+
+:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Tighter radius for pill-shaped nav links */
+.nav-pill a:focus-visible {
+  border-radius: 999px;
+}
+
+/* Buttons keep their own border-radius */
+button:focus-visible {
+  border-radius: 12px;
+  outline-offset: 3px;
+}
+
+/* Contact cards & glass links */
+.glass:focus-visible,
+a.glass:focus-visible {
+  outline-color: #a5b4fc;
+  border-radius: 20px;
+}
+
+/* =========================
    📱 MOBILE RESPONSIVE
 ========================= */
 
