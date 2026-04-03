@@ -158,8 +158,10 @@ export default function Contact() {
                   transition={{ duration: 0.45, delay: i * 0.08 }}
                   viewport={{ once: true }}
                   whileHover={link.href ? {
+                    y: -3,
                     boxShadow: `0 8px 30px ${link.glow}`,
                     borderColor: link.color + "44",
+                    transition: { duration: 0.2 },
                   } : {}}
                   style={{
                     padding: "16px 20px",
@@ -167,7 +169,6 @@ export default function Contact() {
                     alignItems: "center",
                     gap: "14px",
                     cursor: link.href ? "pointer" : "default",
-                    transition: "all 0.25s ease",
                     textDecoration: "none",
                   }}
                 >
@@ -196,7 +197,7 @@ export default function Contact() {
               );
 
               return link.href ? (
-                <a key={i} href={link.href} target={link.href.startsWith("mailto") ? "_self" : "_blank"} rel="noreferrer" style={{ textDecoration: "none" }}>
+                <a key={i} href={link.href} target={link.href.startsWith("mailto") ? "_self" : "_blank"} rel="noreferrer" style={{ textDecoration: "none", display: "block" }}>
                   {inner}
                 </a>
               ) : (
