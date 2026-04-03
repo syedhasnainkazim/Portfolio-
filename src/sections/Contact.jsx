@@ -157,12 +157,14 @@ export default function Contact() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.45, delay: i * 0.08 }}
                   viewport={{ once: true }}
-                  whileHover={link.href ? {
+                  whileHover={{
                     y: -3,
-                    boxShadow: `0 8px 30px ${link.glow}`,
-                    borderColor: link.color + "44",
+                    ...(link.href ? {
+                      boxShadow: `0 8px 30px ${link.glow}`,
+                      borderColor: link.color + "44",
+                    } : {}),
                     transition: { duration: 0.2 },
-                  } : {}}
+                  }}
                   style={{
                     padding: "16px 20px",
                     display: "flex",
