@@ -210,7 +210,7 @@ export default function Hero() {
                 View Projects
               </button>
             </a>
-            <a href="/resume.pdf" target="_blank" rel="noreferrer" style={{ textDecoration: "none" }}>
+            <a href="/resume.pdf" download="Syed_Kazim_Resume.pdf" style={{ textDecoration: "none" }}>
               <button className="secondary-btn" style={{ fontSize: "14px" }}>
                 Download Resume
               </button>
