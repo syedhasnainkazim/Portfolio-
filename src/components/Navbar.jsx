@@ -7,22 +7,30 @@ export default function Navbar() {
   const [active, setActive]     = useState("home");
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      // Find which section is currently in view
-      let current = "home";
-      for (const item of NAV_ITEMS) {
-        const el = document.getElementById(item.toLowerCase());
-        if (el && el.getBoundingClientRect().top <= 120) {
-          current = item.toLowerCase();
-        }
-      }
-      setActive(current);
-    };
-
+    // Scroll state for nav background
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // IntersectionObserver for active section — fires when a section
+    // enters the top-third of the viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-15% 0px -80% 0px" }
+    );
+
+    NAV_ITEMS.forEach((item) => {
+      const el = document.getElementById(item.toLowerCase());
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (
