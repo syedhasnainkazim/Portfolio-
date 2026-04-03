@@ -2,46 +2,48 @@ import { motion } from "framer-motion";
 
 // ─── COORDINATE SPACE ────────────────────────────────────────────────────────
 const W = 920;
-const H = 640;
+const H = 480;
 
 // ─── LANE DEFINITIONS ────────────────────────────────────────────────────────
+// Labels sit just below each section separator line.
+// First lane has no top separator (it starts at the canvas top).
 const LANES = [
-  { label: "Systems & Low-Level", color: "#a78bfa", labelY: 18,  lineY: 30  },
-  { label: "Web Development",     color: "#34d399", labelY: 272, lineY: 284 },
-  { label: "Data & Science",      color: "#f472b6", labelY: 480, lineY: 492 },
+  { label: "Systems & Low-Level", color: "#a78bfa", labelY: 10,  lineY: null },
+  { label: "Web Development",     color: "#34d399", labelY: 191, lineY: 184  },
+  { label: "Data & Science",      color: "#f472b6", labelY: 348, lineY: 341  },
 ];
 
 // ─── NODES ───────────────────────────────────────────────────────────────────
 const NODES = [
-  // ROOT
-  { id: "python",     name: "Python",      year: "2019", x: 55,  y: 320, color: "#60a5fa", isRoot: true },
+  // ROOT — left edge, vertically centered in Web lane
+  { id: "python",     name: "Python",      year: "2019", x: 45,  y: 270, color: "#60a5fa", isRoot: true },
 
-  // ── BRANCH A: Systems / Low-level (top lane, y: 45–175) ──
-  { id: "c",          name: "C",           year: "2019", x: 190, y: 100, color: "#a78bfa" },
-  { id: "cpp",        name: "C++",         year: "2020", x: 335, y: 50,  color: "#c084fc" },
-  { id: "java",       name: "Java",        year: "2020", x: 335, y: 155, color: "#e879f9" },
-  { id: "linux",      name: "Linux",       year: "2021", x: 480, y: 48,  color: "#f472b6" },
-  { id: "git",        name: "Git",         year: "2020", x: 480, y: 158, color: "#f97316" },
-  { id: "docker",     name: "Docker",      year: "2023", x: 630, y: 100, color: "#38bdf8" },
-  { id: "aws",        name: "AWS",         year: "2024", x: 795, y: 158, color: "#fcd34d" },
+  // Systems lane  (y ≈ 80–135)
+  { id: "c",          name: "C",           year: "2019", x: 180, y: 105, color: "#a78bfa" },
+  { id: "cpp",        name: "C++",         year: "2020", x: 315, y: 80,  color: "#c084fc" },
+  { id: "java",       name: "Java",        year: "2020", x: 315, y: 133, color: "#e879f9" },
+  { id: "linux",      name: "Linux",       year: "2021", x: 460, y: 80,  color: "#f472b6" },
+  { id: "git",        name: "Git",         year: "2020", x: 460, y: 133, color: "#f97316" },
+  { id: "docker",     name: "Docker",      year: "2023", x: 610, y: 105, color: "#38bdf8" },
+  { id: "aws",        name: "AWS",         year: "2024", x: 762, y: 105, color: "#fcd34d" },
 
-  // ── BRANCH B: Web (middle lane, y: 300–430) ──
-  { id: "html_css",   name: "HTML / CSS",  year: "2019", x: 190, y: 320, color: "#34d399" },
-  { id: "javascript", name: "JavaScript",  year: "2021", x: 345, y: 348, color: "#fbbf24" },
-  { id: "react",      name: "React",       year: "2022", x: 490, y: 305, color: "#38bdf8" },
-  { id: "nodejs",     name: "Node.js",     year: "2022", x: 490, y: 420, color: "#4ade80" },
-  { id: "flask",      name: "Flask",       year: "2023", x: 640, y: 400, color: "#2dd4bf" },
-  { id: "typescript", name: "TypeScript",  year: "2024", x: 795, y: 318, color: "#3b82f6" },
+  // Web lane  (y ≈ 248–300)
+  { id: "html_css",   name: "HTML / CSS",  year: "2019", x: 195, y: 270, color: "#34d399" },
+  { id: "javascript", name: "JavaScript",  year: "2021", x: 338, y: 255, color: "#fbbf24" },
+  { id: "react",      name: "React",       year: "2022", x: 480, y: 248, color: "#38bdf8" },
+  { id: "nodejs",     name: "Node.js",     year: "2022", x: 480, y: 298, color: "#4ade80" },
+  { id: "flask",      name: "Flask",       year: "2023", x: 624, y: 292, color: "#2dd4bf" },
+  { id: "typescript", name: "TypeScript",  year: "2024", x: 762, y: 260, color: "#3b82f6" },
 
-  // ── BRANCH C: Data (bottom lane, y: 505–545) ──
-  { id: "sql",        name: "SQL",         year: "2020", x: 190, y: 520, color: "#f472b6" },
-  { id: "postgresql", name: "PostgreSQL",  year: "2022", x: 345, y: 540, color: "#fb923c" },
-  { id: "ml_ai",      name: "ML / AI",     year: "2026", x: 795, y: 535, color: "#a5b4fc", isLatest: true },
+  // Data lane  (y ≈ 412–430)
+  { id: "sql",        name: "SQL",         year: "2020", x: 195, y: 418, color: "#f472b6" },
+  { id: "postgresql", name: "PostgreSQL",  year: "2022", x: 347, y: 430, color: "#fb923c" },
+  { id: "ml_ai",      name: "ML / AI",     year: "2026", x: 762, y: 418, color: "#a5b4fc", isLatest: true },
 ];
 
 // ─── EDGES ───────────────────────────────────────────────────────────────────
 const EDGES = [
-  // Python → three lanes
+  // Python branches into three lanes
   { from: "python",     to: "c"          },
   { from: "python",     to: "html_css"   },
   { from: "python",     to: "sql"        },
@@ -63,7 +65,7 @@ const EDGES = [
   // Data lane
   { from: "sql",        to: "postgresql" },
   { from: "postgresql", to: "ml_ai"      },
-  // Cross-lane: flask feeds ML APIs
+  // Cross-lane: Flask feeds ML APIs
   { from: "flask",      to: "ml_ai"      },
 ];
 
@@ -88,23 +90,23 @@ function buildDelays() {
 }
 const DELAYS = buildDelays();
 
-// Smart edge routing: same-lane uses horizontal S-curve,
-// cross-lane uses a more vertical path to avoid cutting through other lanes
+// Cross-lane paths curve away from the source quickly then arrive
+// horizontally at the destination, avoiding mid-canvas clutter.
 function edgePath(a, b) {
   const dx = b.x - a.x;
   const dy = b.y - a.y;
 
-  if (Math.abs(dy) > 110) {
-    // Cross-lane: pull control points closer to source/dest horizontally
-    // so the curve dips down/up more steeply and avoids mid-lane nodes
+  if (Math.abs(dy) > 90) {
+    // Cross-lane: transition most of the vertical distance early,
+    // then glide horizontally into the destination node.
     const cp1x = a.x + dx * 0.25;
-    const cp1y = a.y + dy * 0.55;
-    const cp2x = b.x - dx * 0.25;
-    const cp2y = b.y - dy * 0.25;
+    const cp1y = a.y + dy * 0.78;
+    const cp2x = a.x + dx * 0.72;
+    const cp2y = b.y;
     return `M ${a.x},${a.y} C ${cp1x},${cp1y} ${cp2x},${cp2y} ${b.x},${b.y}`;
   }
 
-  // Same lane: classic horizontal S-curve
+  // Same-lane: classic horizontal S-curve
   const mx = (a.x + b.x) / 2;
   return `M ${a.x},${a.y} C ${mx},${a.y} ${mx},${b.y} ${b.x},${b.y}`;
 }
@@ -159,7 +161,7 @@ export default function Skills() {
                 preserveAspectRatio="xMidYMid meet"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
               >
-                {/* Edges first */}
+                {/* Edges */}
                 {EDGES.map((edge, i) => {
                   const a = nodeMap[edge.from];
                   const b = nodeMap[edge.to];
@@ -181,24 +183,26 @@ export default function Skills() {
                   );
                 })}
 
-                {/* Lane dividers + labels */}
+                {/* Lane separators + labels */}
                 {LANES.map((lane, i) => (
                   <g key={i}>
-                    {/* Full-width separator line */}
-                    <line
-                      x1="10" y1={lane.lineY}
-                      x2={W - 10} y2={lane.lineY}
-                      stroke={`${lane.color}28`}
-                      strokeWidth="1"
-                    />
-                    {/* Colored indicator dot */}
+                    {/* Separator line (skip for first lane) */}
+                    {lane.lineY !== null && (
+                      <line
+                        x1="10" y1={lane.lineY}
+                        x2={W - 10} y2={lane.lineY}
+                        stroke={`${lane.color}30`}
+                        strokeWidth="1"
+                      />
+                    )}
+                    {/* Colored dot */}
                     <circle cx="18" cy={lane.labelY + 4} r="4" fill={lane.color} opacity="0.75" />
-                    {/* Label text */}
+                    {/* Label */}
                     <text
                       x="28"
                       y={lane.labelY + 8}
                       textAnchor="start"
-                      fill="rgba(255,255,255,0.60)"
+                      fill="rgba(255,255,255,0.55)"
                       fontSize="11"
                       fontFamily="monospace"
                       letterSpacing="2"
