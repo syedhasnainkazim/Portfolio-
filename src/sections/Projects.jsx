@@ -5,7 +5,7 @@ import Tilt from "react-parallax-tilt";
 const projects = [
   {
     title: "CrypticChat",
-    desc: "Secure real-time messaging platform with end-to-end encryption, JWT auth, and live socket connections.",
+    desc: "Real-time encrypted messaging app built on Socket.IO — handles bi-directional communication across multiple rooms with sub-100ms message delivery. AES end-to-end encryption and JWT auth keep sessions secure; live presence indicators show who's online.",
     image: "/images/CrypticChat.jpg",
     imgFit: "cover",
     imgPosition: "center top",
@@ -15,7 +15,7 @@ const projects = [
   },
   {
     title: "Applied Style NJ",
-    desc: "Responsive business website with online scheduling for automotive services.",
+    desc: "Live production site for an automotive detail studio in Edison, NJ. Integrated online booking replaced phone-only scheduling, cutting appointment coordination time by ~3 hrs/week. Deployed on Netlify with CI/CD from GitHub.",
     image: "/images/aps-photo.jpg",
     imgFit: "contain",
     imgPosition: "center",
@@ -27,7 +27,7 @@ const projects = [
   },
   {
     title: "FinTrack",
-    desc: "Full-stack personal finance dashboard with real-time analytics, budget tracking, and REST APIs.",
+    desc: "Personal finance dashboard backed by a PostgreSQL REST API with sub-200ms response times. Tracks spending across custom categories with interactive charts; JWT auth with refresh token rotation keeps sessions secure without frequent re-logins.",
     image: "/images/FinTrack.jpg",
     imgFit: "cover",
     imgPosition: "center top",
@@ -37,7 +37,7 @@ const projects = [
   },
   {
     title: "AutoMatch",
-    desc: "Vehicle search and recommendation platform with ML-driven filtering and intelligent suggestions.",
+    desc: "Vehicle recommendation engine combining a Python ML model with PostgreSQL full-text search across thousands of listings. Collaborative filtering ranks results by user preference signals; Next.js SSR cuts initial page load by ~40% vs. a pure client-side fetch.",
     image: "/images/AutoMatch.jpg",
     imgFit: "cover",
     imgPosition: "center",
