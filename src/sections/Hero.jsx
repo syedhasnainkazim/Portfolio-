@@ -124,10 +124,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
               style={{
-                fontSize: "clamp(48px, 5.5vw, 72px)",
-                whiteSpace: "nowrap",
+                fontSize: "clamp(38px, 10vw, 72px)",
                 fontWeight: 800,
-                lineHeight: 1.0,
+                lineHeight: 1.05,
                 letterSpacing: "-0.03em",
                 background: "linear-gradient(140deg, #ffffff 25%, #93c5fd 65%, #a5b4fc 100%)",
                 WebkitBackgroundClip: "text",

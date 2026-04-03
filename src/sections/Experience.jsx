@@ -118,7 +118,7 @@ export default function Experience() {
                 }}
               >
                 {/* Top row */}
-                <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px", marginBottom: "14px" }}>
+                <div className="exp-top-row" style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px", marginBottom: "14px" }}>
                   <div>
                     <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#fff" }}>
                       {exp.role}
