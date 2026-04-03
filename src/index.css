@@ -270,7 +270,7 @@ a:hover {
    📱 MOBILE RESPONSIVE
 ========================= */
 
-/* ── Touch devices: restore normal cursor ── */
+/* ── Touch devices: restore normal cursor + disable Tilt lag ── */
 @media (pointer: coarse) {
   .custom-cursor-dot,
   .custom-cursor-ring { display: none !important; }
@@ -306,26 +306,42 @@ a:hover {
     white-space: nowrap;
   }
 
-  /* ── Hero: push Sun off-screen so it doesn't cover text ── */
+  /* ── Hero: push Sun off-screen, stack CTA buttons full-width ── */
   .sun-wrap {
     right: -420px !important;
     width: 400px !important;
     height: 400px !important;
   }
+  .hero-ctas {
+    flex-direction: column !important;
+    width: 100%;
+  }
+  .hero-ctas a {
+    width: 100% !important;
+  }
+  .hero-ctas button {
+    width: 100% !important;
+    justify-content: center;
+  }
 
-  /* ── About: stack, show photos below bio ── */
+  /* ── About: stack columns; photos side-by-side, shorter ── */
   .about-grid {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
   }
   .about-photos {
     display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
   }
   .about-profile-photo {
-    height: 280px !important;
+    flex: 1;
+    height: 220px !important;
   }
   .about-school-photo {
-    height: 140px !important;
+    width: 110px !important;
+    flex-shrink: 0;
+    height: 220px !important;
   }
 
   /* ── Projects: single column ── */
@@ -333,19 +349,26 @@ a:hover {
     grid-template-columns: 1fr !important;
   }
 
-  /* ── Experience: full width ── */
+  /* ── Experience: full width, stack date below company ── */
   .experience-timeline {
     max-width: 100% !important;
   }
+  .exp-top-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+  .exp-top-row > div:last-child {
+    text-align: left !important;
+  }
 
-  /* ── Skills: horizontal scroll at full 900px width ── */
+  /* ── Skills: horizontal scroll ── */
   .skills-scroll-wrapper {
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     margin: 0 -20px;
-    padding: 0 20px 8px;
-    padding-bottom: 8px;
+    padding: 0 20px 12px;
   }
   .skills-scroll-wrapper::-webkit-scrollbar { display: none; }
   .skills-map {
@@ -354,16 +377,22 @@ a:hover {
     max-width: none !important;
   }
 
-  /* ── Contact: stack columns, fix overflow ── */
+  /* ── Contact: stack columns ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
-    gap: 28px !important;
+    gap: 24px !important;
   }
   .form-row {
     grid-template-columns: 1fr !important;
   }
   .contact-grid .glass {
-    padding: 24px 18px !important;
+    padding: 20px 16px !important;
+  }
+  .contact-form-card {
+    padding: 22px 16px !important;
+  }
+  .contact-send-btn {
+    width: 100% !important;
   }
 }
 
@@ -382,5 +411,9 @@ a:hover {
   .skills-map {
     min-width: 780px !important;
     width: 780px !important;
+  }
+  /* Tighter experience card on very small screens */
+  .experience-timeline {
+    padding-left: 0 !important;
   }
 }
