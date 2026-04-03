@@ -8,7 +8,7 @@ import Sun from "../components/Sun";
 import Hero3D from "../components/Hero3D";
 
 const STATS = [
-  { value: "7+",  label: "Yrs Experience" },
+  { value: "4+",  label: "Yrs Experience" },
   { value: "10+", label: "Projects Built"  },
   { value: "2",   label: "Companies"       },
 ];
