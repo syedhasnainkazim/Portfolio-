@@ -196,12 +196,12 @@ export default function Skills() {
                       />
                     )}
                     {/* Colored dot */}
-                    <circle cx="18" cy={lane.labelY + 4} r="4" fill={lane.color} opacity="0.75" />
+                    <circle cx={W - 18} cy={lane.labelY + 4} r="4" fill={lane.color} opacity="0.75" />
                     {/* Label */}
                     <text
-                      x="28"
+                      x={W - 28}
                       y={lane.labelY + 8}
-                      textAnchor="start"
+                      textAnchor="end"
                       fill="rgba(255,255,255,0.55)"
                       fontSize="11"
                       fontFamily="monospace"
