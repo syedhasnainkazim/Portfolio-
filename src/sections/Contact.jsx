@@ -4,6 +4,8 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiSend, FiArrowUpRight } from "react-icons/fi";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzzblwvn";
+
 const CONTACT_LINKS = [
   {
     icon: MdEmail,
@@ -41,21 +43,33 @@ const CONTACT_LINKS = [
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Contact from ${form.name}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-    );
-    window.location.href = `mailto:syedhasnainkazim@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setStatus("sending");
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 4000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   }
 
   return (
@@ -273,8 +287,9 @@ export default function Contact() {
               {/* Submit */}
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
+                disabled={status === "sending"}
+                whileHover={status === "idle" ? { scale: 1.02 } : {}}
+                whileTap={status === "idle" ? { scale: 0.97 } : {}}
                 className="contact-send-btn"
                 style={{
                   display: "flex",
@@ -284,30 +299,27 @@ export default function Contact() {
                   padding: "13px 24px",
                   borderRadius: "12px",
                   border: "none",
-                  background: sent
-                    ? "linear-gradient(135deg, #16a34a, #15803d)"
-                    : "linear-gradient(135deg, #3b82f6, #2563eb)",
+                  background:
+                    status === "sent"  ? "linear-gradient(135deg, #16a34a, #15803d)" :
+                    status === "error" ? "linear-gradient(135deg, #dc2626, #b91c1c)" :
+                                        "linear-gradient(135deg, #3b82f6, #2563eb)",
                   color: "#fff",
                   fontSize: "14px",
                   fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "background 0.3s ease",
-                  boxShadow: sent
-                    ? "0 8px 30px rgba(22,163,74,0.35)"
-                    : "0 8px 30px rgba(59,130,246,0.35)",
+                  cursor: status === "sending" ? "wait" : "pointer",
+                  opacity: status === "sending" ? 0.7 : 1,
+                  transition: "background 0.3s ease, opacity 0.2s ease",
+                  boxShadow:
+                    status === "sent"  ? "0 8px 30px rgba(22,163,74,0.35)" :
+                    status === "error" ? "0 8px 30px rgba(220,38,38,0.35)" :
+                                        "0 8px 30px rgba(59,130,246,0.35)",
                   marginTop: "4px",
                 }}
               >
-                {sent ? (
-                  <>
-                    <span>✓</span> Message sent!
-                  </>
-                ) : (
-                  <>
-                    <FiSend size={15} style={{ animation: "jiggle 2.5s ease-in-out infinite" }} />
-                    Send Message
-                  </>
-                )}
+                {status === "sent"    && <><span>✓</span> Message sent!</>}
+                {status === "error"   && <><span>✕</span> Failed — try again</>}
+                {status === "sending" && <>Sending…</>}
+                {status === "idle"    && <><FiSend size={15} style={{ animation: "jiggle 2.5s ease-in-out infinite" }} /> Send Message</>}
               </motion.button>
 
             </form>
