@@ -267,6 +267,16 @@ a:hover {
 }
 
 /* =========================
+   📦 CONTAINER
+========================= */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
    ♿ KEYBOARD / FOCUS STATES
 ========================= */
 
@@ -408,16 +418,23 @@ a.glass:focus-visible {
     max-width: none !important;
   }
 
-  /* ── Contact: stack columns ── */
+  /* ── Contact: stack columns, contain overflow ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+  .contact-grid > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
   .form-row {
     grid-template-columns: 1fr !important;
   }
   .contact-grid .glass {
     padding: 20px 16px !important;
+    min-width: 0 !important;
   }
   .contact-form-card {
     padding: 22px 16px !important;
