@@ -1,46 +1,36 @@
 import { useEffect, useState } from "react";
 
-const STAR_COUNT = 16;
+const STAR_COUNT = 7;
 
 function generateStar(id) {
   const w = typeof window !== "undefined" ? window.innerWidth  : 1400;
   const h = typeof window !== "undefined" ? window.innerHeight : 900;
 
-  // Spawn from any edge or anywhere on screen for full scatter
-  const spawnZone = Math.floor(Math.random() * 4); // 0=top, 1=left, 2=right-side top, 3=anywhere
+  const spawnZone = Math.floor(Math.random() * 3);
   let startX, startY;
 
   if (spawnZone === 0) {
-    // Spawn along top edge
     startX = Math.random() * w;
     startY = -20;
   } else if (spawnZone === 1) {
-    // Spawn along left edge
     startX = -30;
-    startY = Math.random() * h * 0.7;
-  } else if (spawnZone === 2) {
-    // Spawn upper-right quadrant
-    startX = w * 0.4 + Math.random() * w * 0.6;
-    startY = Math.random() * h * 0.3;
+    startY = Math.random() * h * 0.6;
   } else {
-    // Fully random position anywhere
-    startX = Math.random() * w;
-    startY = Math.random() * h * 0.8;
+    startX = w * 0.3 + Math.random() * w * 0.7;
+    startY = Math.random() * h * 0.4;
   }
 
-  // Wide angle variety: some nearly horizontal, some steep, some in between
-  const angleGroup = Math.floor(Math.random() * 4);
+  const angleGroup = Math.floor(Math.random() * 3);
   let angle;
-  if      (angleGroup === 0) angle = 5  + Math.random() * 15;  // nearly horizontal
-  else if (angleGroup === 1) angle = 20 + Math.random() * 20;  // classic diagonal
-  else if (angleGroup === 2) angle = 45 + Math.random() * 25;  // steep
-  else                       angle = -5 + Math.random() * 10;  // slight upward then down
+  if      (angleGroup === 0) angle = 8  + Math.random() * 14;  // shallow
+  else if (angleGroup === 1) angle = 22 + Math.random() * 18;  // classic diagonal
+  else                       angle = 42 + Math.random() * 22;  // steep
 
-  const TRAVEL_OPTIONS = [300, 400, 500, 600, 700, 800];
-  const length   = 140 + Math.random() * 260;
+  const TRAVEL_OPTIONS = [280, 380, 480, 580];
+  const length   = 80 + Math.random() * 160;
   const travel   = TRAVEL_OPTIONS[Math.floor(Math.random() * TRAVEL_OPTIONS.length)];
-  const duration = 0.7 + Math.random() * 1.4;
-  const delay    = Math.random() * 22;
+  const duration = 0.9 + Math.random() * 1.6;
+  const delay    = Math.random() * 40; // wide spread so they don't bunch up
 
   return { id, startX, startY, angle, length, travel, duration, delay };
 }
@@ -51,7 +41,7 @@ export default function ShootingStars() {
   useEffect(() => {
     setStars(Array.from({ length: STAR_COUNT }, (_, i) => generateStar(i)));
 
-    // Periodically refresh a random star so new ones keep appearing in new spots
+    // Refresh one star at a time at a relaxed pace
     const interval = setInterval(() => {
       setStars(prev => {
         const idx = Math.floor(Math.random() * prev.length);
@@ -59,7 +49,7 @@ export default function ShootingStars() {
         next[idx] = generateStar(Date.now());
         return next;
       });
-    }, 3500);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, []);
@@ -99,7 +89,7 @@ export default function ShootingStars() {
             <div style={{
               position: "absolute",
               inset: 0,
-              background: "linear-gradient(90deg, transparent 0%, rgba(200,220,255,0.28) 50%, rgba(255,255,255,0.88) 100%)",
+              background: "linear-gradient(90deg, transparent 0%, rgba(200,220,255,0.16) 50%, rgba(255,255,255,0.65) 100%)",
               borderRadius: "999px",
             }} />
             {/* Bright head */}
@@ -120,7 +110,7 @@ export default function ShootingStars() {
 
       <style>{`
         /* Generate keyframes for a spread of travel distances */
-        ${[300, 400, 500, 600, 700, 800].map(t => `
+        ${[280, 380, 480, 580].map(t => `
           @keyframes shootStar_${t} {
             0%   { opacity: 0;   transform: translateX(0); }
             6%   { opacity: 1; }
