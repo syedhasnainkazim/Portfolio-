@@ -12,6 +12,7 @@ import Background from "./components/Background";
 import ShootingStars from "./components/ShootingStars";
 import ScrollExtras from "./components/ScrollExtras";
 import Loader from "./components/Loader";
+import Sparkles from "./components/Sparkles";
 import useScrollAnimations from "./hooks/useScrollAnimations";
 import CustomCursor from "./components/CustomCursor";
 
@@ -29,6 +30,7 @@ function App() {
         {/* 🌌 GLOBAL BACKGROUND */}
         <CustomCursor />
         <Background />
+        <Sparkles />
         <ShootingStars />
 
         {/* 🧭 NAVBAR */}
