@@ -324,6 +324,7 @@ a.glass:focus-visible {
   /* Sections */
   .section {
     padding: 72px 20px;
+    overflow-x: hidden;
   }
   .section-subtitle {
     font-size: 14px;
@@ -421,23 +422,36 @@ a.glass:focus-visible {
   /* ── Contact: stack columns, contain overflow ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+    gap: 16px !important;
     width: 100% !important;
-    overflow: hidden !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
   }
   .contact-grid > * {
     min-width: 0 !important;
     max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .contact-grid a {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
   .form-row {
     grid-template-columns: 1fr !important;
   }
   .contact-grid .glass {
-    padding: 20px 16px !important;
+    padding: 14px 16px !important;
     min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .contact-form-card {
-    padding: 22px 16px !important;
+    padding: 20px 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .contact-send-btn {
     width: 100% !important;

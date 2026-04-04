@@ -132,8 +132,8 @@ export default function Contact() {
 
             {/* Availability badge */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
               style={{
@@ -167,8 +167,8 @@ export default function Contact() {
                 <motion.div
                   key={i}
                   className="glass"
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: i * 0.08 }}
                   viewport={{ once: true }}
                   whileHover={{
