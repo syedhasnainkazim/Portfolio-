@@ -161,13 +161,12 @@ export default function Skills() {
                 preserveAspectRatio="xMidYMid meet"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
               >
-                {/* Edges */}
+                {/* Edges — plain paths so they render inside scroll containers */}
                 {EDGES.map((edge, i) => {
                   const a = nodeMap[edge.from];
                   const b = nodeMap[edge.to];
-                  const delay = Math.max(DELAYS[edge.from], DELAYS[edge.to]);
                   return (
-                    <motion.path
+                    <path
                       key={i}
                       d={edgePath(a, b)}
                       stroke={`${a.color}bb`}
@@ -175,10 +174,7 @@ export default function Skills() {
                       strokeDasharray="6 8"
                       fill="none"
                       strokeLinecap="round"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay }}
-                      viewport={{ once: true }}
+                      opacity={1}
                     />
                   );
                 })}

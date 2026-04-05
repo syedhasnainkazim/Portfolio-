@@ -22,6 +22,10 @@ body,
   min-height: 100%;
   background: #000;
   color: #fff;
+}
+
+/* Prevent horizontal scroll at body level without clipping card shadows */
+body {
   overflow-x: hidden;
 }
 
@@ -324,7 +328,6 @@ a.glass:focus-visible {
   /* Sections */
   .section {
     padding: 72px 20px;
-    overflow-x: hidden;
   }
   .section-subtitle {
     font-size: 14px;
@@ -419,39 +422,27 @@ a.glass:focus-visible {
     max-width: none !important;
   }
 
-  /* ── Contact: stack columns, contain overflow ── */
+  /* ── Contact: stack columns ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 12px !important;
     width: 100% !important;
-    max-width: 100% !important;
-    overflow: visible !important;
+  }
+  .contact-grid > *,
+  .contact-grid a,
+  .contact-grid .glass {
+    min-width: 0 !important;
+    width: 100% !important;
     box-sizing: border-box !important;
   }
-  .contact-grid > * {
-    min-width: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .contact-grid a {
-    min-width: 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
+  .contact-grid .glass {
+    padding: 14px 16px !important;
   }
   .form-row {
     grid-template-columns: 1fr !important;
   }
-  .contact-grid .glass {
-    padding: 14px 16px !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
   .contact-form-card {
     padding: 20px 16px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
   }
   .contact-send-btn {
     width: 100% !important;
