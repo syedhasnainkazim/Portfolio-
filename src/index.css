@@ -281,6 +281,14 @@ a:hover {
 }
 
 /* =========================
+   📬 CONTACT
+========================= */
+
+.contact-form-card {
+  padding: 32px 30px;
+}
+
+/* =========================
    ♿ KEYBOARD / FOCUS STATES
 ========================= */
 
@@ -443,6 +451,9 @@ a.glass:focus-visible {
   }
   .contact-form-card {
     padding: 20px 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   .contact-send-btn {
     width: 100% !important;

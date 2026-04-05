@@ -224,12 +224,12 @@ export default function Contact() {
 
           {/* ── RIGHT — FORM ── */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
             viewport={{ once: true }}
             className="glass contact-form-card"
-            style={{ padding: "32px 30px", minWidth: 0 }}
+            style={{ minWidth: 0, width: "100%" }}
           >
             <h3 style={{ fontSize: "16px", fontWeight: 600, marginBottom: "24px", color: "rgba(255,255,255,0.9)" }}>
               Send a message
