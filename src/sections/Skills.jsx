@@ -159,7 +159,7 @@ export default function Skills() {
               <svg
                 viewBox={`0 0 ${W} ${H}`}
                 preserveAspectRatio="xMidYMid meet"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 3, pointerEvents: "none" }}
               >
                 {/* Edges — plain paths so they render inside scroll containers */}
                 {EDGES.map((edge, i) => {
