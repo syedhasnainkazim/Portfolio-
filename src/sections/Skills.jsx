@@ -227,38 +227,14 @@ export default function Skills() {
                       position: "absolute",
                       left: `${xPct}%`,
                       top: `${yPct}%`,
+                      // Only the 16px circle is the anchor — labels are absolutely placed around it
                       transform: "translate(-50%, -50%)",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: "5px",
+                      width: "16px",
+                      height: "16px",
                       zIndex: 2,
                     }}
                   >
-                    {node.isRoot && (
-                      <span style={{
-                        fontSize: "9px",
-                        background: "rgba(96,165,250,0.18)",
-                        border: "1px solid rgba(96,165,250,0.45)",
-                        color: "#93c5fd",
-                        borderRadius: "999px",
-                        padding: "1px 8px",
-                        fontFamily: "monospace",
-                        letterSpacing: "0.08em",
-                        marginBottom: "1px",
-                      }}>START</span>
-                    )}
-
-                    <span style={{
-                      fontSize: "11.5px",
-                      fontWeight: 600,
-                      color: "rgba(255,255,255,0.88)",
-                      whiteSpace: "nowrap",
-                      lineHeight: 1,
-                    }}>
-                      {node.name}
-                    </span>
-
+                    {/* Circle dot — center is exactly at node coordinate */}
                     <div style={{
                       width: "16px",
                       height: "16px",
@@ -266,7 +242,6 @@ export default function Skills() {
                       background: node.color,
                       boxShadow: `0 0 8px 3px ${node.color}55, 0 0 18px 6px ${node.color}22`,
                       border: "2px solid rgba(255,255,255,0.28)",
-                      flexShrink: 0,
                       position: "relative",
                     }}>
                       {node.isLatest && (
@@ -280,11 +255,54 @@ export default function Skills() {
                       )}
                     </div>
 
+                    {/* Name label — above the circle */}
                     <span style={{
+                      position: "absolute",
+                      bottom: "calc(100% + 5px)",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      fontSize: "11.5px",
+                      fontWeight: 600,
+                      color: "rgba(255,255,255,0.88)",
+                      whiteSpace: "nowrap",
+                      lineHeight: 1,
+                      pointerEvents: "none",
+                    }}>
+                      {node.name}
+                    </span>
+
+                    {/* START badge — above the name */}
+                    {node.isRoot && (
+                      <span style={{
+                        position: "absolute",
+                        bottom: "calc(100% + 22px)",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        fontSize: "9px",
+                        background: "rgba(96,165,250,0.18)",
+                        border: "1px solid rgba(96,165,250,0.45)",
+                        color: "#93c5fd",
+                        borderRadius: "999px",
+                        padding: "1px 8px",
+                        fontFamily: "monospace",
+                        letterSpacing: "0.08em",
+                        whiteSpace: "nowrap",
+                        pointerEvents: "none",
+                      }}>START</span>
+                    )}
+
+                    {/* Year label — below the circle */}
+                    <span style={{
+                      position: "absolute",
+                      top: "calc(100% + 5px)",
+                      left: "50%",
+                      transform: "translateX(-50%)",
                       fontSize: "10px",
                       color: "rgba(255,255,255,0.35)",
                       fontFamily: "monospace",
                       lineHeight: 1,
+                      whiteSpace: "nowrap",
+                      pointerEvents: "none",
                     }}>
                       {node.year}{node.isLatest && <span style={{ color: "#4ade80", marginLeft: "3px" }}>●</span>}
                     </span>
