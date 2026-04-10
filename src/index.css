@@ -427,7 +427,6 @@ a.glass:focus-visible {
   .skills-map {
     min-width: 860px !important;
     width: 860px !important;
-    max-width: none !important;
   }
 
   /* ── Contact: stack columns ── */
@@ -473,8 +472,8 @@ a.glass:focus-visible {
     display: none !important;
   }
   .skills-map {
-    min-width: 780px !important;
-    width: 780px !important;
+    min-width: 760px !important;
+    width: 760px !important;
   }
   /* Tighter experience card on very small screens */
   .experience-timeline {
