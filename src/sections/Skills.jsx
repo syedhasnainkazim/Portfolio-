@@ -145,171 +145,113 @@ export default function Skills() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
             viewport={{ once: true }}
-            style={{
-              position: "relative",
-              width: "100%",
-              paddingBottom: `${(H / W) * 100}%`,
-              marginTop: "36px",
-              maxWidth: `${W}px`,
-            }}
+            style={{ marginTop: "36px" }}
           >
-            <div style={{ position: "absolute", inset: 0 }}>
+            {/* Pure SVG — paths and dots share one coordinate system, no offset possible */}
+            <svg
+              viewBox={`0 0 ${W} ${H}`}
+              style={{ width: "100%", height: "auto", display: "block", overflow: "visible" }}
+            >
+              {/* ── EDGES ── */}
+              {EDGES.map((edge, i) => {
+                const a = nodeMap[edge.from];
+                const b = nodeMap[edge.to];
+                return (
+                  <path
+                    key={i}
+                    d={edgePath(a, b)}
+                    stroke={`${a.color}bb`}
+                    strokeWidth={1.8}
+                    strokeDasharray="6 8"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                );
+              })}
 
-              {/* ── SVG LAYER ── */}
-              <svg
-                viewBox={`0 0 ${W} ${H}`}
-                preserveAspectRatio="xMidYMid meet"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 3, pointerEvents: "none" }}
-              >
-                {/* Edges — plain paths so they render inside scroll containers */}
-                {EDGES.map((edge, i) => {
-                  const a = nodeMap[edge.from];
-                  const b = nodeMap[edge.to];
-                  return (
-                    <path
-                      key={i}
-                      d={edgePath(a, b)}
-                      stroke={`${a.color}bb`}
-                      strokeWidth={1.8}
-                      strokeDasharray="6 8"
-                      fill="none"
-                      strokeLinecap="round"
-                      opacity={1}
-                    />
-                  );
-                })}
+              {/* ── LANE SEPARATORS + LABELS ── */}
+              {LANES.map((lane, i) => (
+                <g key={i}>
+                  {lane.lineY !== null && (
+                    <line x1="10" y1={lane.lineY} x2={W - 10} y2={lane.lineY}
+                      stroke={`${lane.color}30`} strokeWidth="1" />
+                  )}
+                  <circle cx={W - 18} cy={lane.labelY + 4} r="4" fill={lane.color} opacity="0.75" />
+                  <text x={W - 28} y={lane.labelY + 8} textAnchor="end"
+                    fill="rgba(255,255,255,0.55)" fontSize="11"
+                    fontFamily="monospace" letterSpacing="2" fontWeight="500">
+                    {lane.label.toUpperCase()}
+                  </text>
+                </g>
+              ))}
 
-                {/* Lane separators + labels */}
-                {LANES.map((lane, i) => (
-                  <g key={i}>
-                    {/* Separator line (skip for first lane) */}
-                    {lane.lineY !== null && (
-                      <line
-                        x1="10" y1={lane.lineY}
-                        x2={W - 10} y2={lane.lineY}
-                        stroke={`${lane.color}30`}
-                        strokeWidth="1"
-                      />
-                    )}
-                    {/* Colored dot */}
-                    <circle cx={W - 18} cy={lane.labelY + 4} r="4" fill={lane.color} opacity="0.75" />
-                    {/* Label */}
-                    <text
-                      x={W - 28}
-                      y={lane.labelY + 8}
-                      textAnchor="end"
-                      fill="rgba(255,255,255,0.55)"
-                      fontSize="11"
-                      fontFamily="monospace"
-                      letterSpacing="2"
-                      fontWeight="500"
-                    >
-                      {lane.label.toUpperCase()}
-                    </text>
-                  </g>
-                ))}
-              </svg>
-
-              {/* ── SKILL NODES ── */}
+              {/* ── NODES — everything in SVG coordinates, guaranteed aligned ── */}
               {NODES.map((node) => {
                 const delay = DELAYS[node.id];
-                const xPct = (node.x / W) * 100;
-                const yPct = (node.y / H) * 100;
-
                 return (
-                  <motion.div
+                  <motion.g
                     key={node.id}
                     initial={{ opacity: 0, scale: 0.2 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.35, delay, type: "spring", stiffness: 220, damping: 16 }}
                     viewport={{ once: true }}
-                    style={{
-                      position: "absolute",
-                      left: `${xPct}%`,
-                      top: `${yPct}%`,
-                      // Only the 16px circle is the anchor — labels are absolutely placed around it
-                      transform: "translate(-50%, -50%)",
-                      width: "16px",
-                      height: "16px",
-                      zIndex: 2,
-                    }}
+                    style={{ transformOrigin: `${node.x}px ${node.y}px` }}
                   >
-                    {/* Circle dot — center is exactly at node coordinate */}
-                    <div style={{
-                      width: "16px",
-                      height: "16px",
-                      borderRadius: "50%",
-                      background: node.color,
-                      boxShadow: `0 0 8px 3px ${node.color}55, 0 0 18px 6px ${node.color}22`,
-                      border: "2px solid rgba(255,255,255,0.28)",
-                      position: "relative",
-                    }}>
-                      {node.isLatest && (
-                        <div style={{
-                          position: "absolute",
-                          inset: "-5px",
-                          borderRadius: "50%",
-                          border: `2px solid ${node.color}`,
-                          animation: "latestPulse 2s ease-in-out infinite",
-                        }} />
-                      )}
-                    </div>
+                    {/* Pulse ring for "currently deepening" */}
+                    {node.isLatest && (
+                      <circle cx={node.x} cy={node.y} r="14" fill="none"
+                        stroke={node.color} strokeWidth="2"
+                        style={{ animation: "latestPulse 2s ease-in-out infinite" }} />
+                    )}
 
-                    {/* Name label — above the circle */}
-                    <span style={{
-                      position: "absolute",
-                      bottom: "calc(100% + 5px)",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: "11.5px",
-                      fontWeight: 600,
-                      color: "rgba(255,255,255,0.88)",
-                      whiteSpace: "nowrap",
-                      lineHeight: 1,
-                      pointerEvents: "none",
-                    }}>
+                    {/* Soft glow halo */}
+                    <circle cx={node.x} cy={node.y} r="12" fill={node.color} opacity="0.12" />
+
+                    {/* Main dot */}
+                    <circle
+                      cx={node.x} cy={node.y} r="8"
+                      fill={node.color}
+                      stroke="rgba(255,255,255,0.28)" strokeWidth="2"
+                      style={{ filter: `drop-shadow(0 0 4px ${node.color}99) drop-shadow(0 0 10px ${node.color}44)` }}
+                    />
+
+                    {/* Name — above dot */}
+                    <text x={node.x} y={node.y - 15}
+                      textAnchor="middle"
+                      fill="rgba(255,255,255,0.88)"
+                      fontSize="11.5" fontWeight="600"
+                      fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
                       {node.name}
-                    </span>
+                    </text>
 
                     {/* START badge — above the name */}
                     {node.isRoot && (
-                      <span style={{
-                        position: "absolute",
-                        bottom: "calc(100% + 22px)",
-                        left: "50%",
-                        transform: "translateX(-50%)",
-                        fontSize: "9px",
-                        background: "rgba(96,165,250,0.18)",
-                        border: "1px solid rgba(96,165,250,0.45)",
-                        color: "#93c5fd",
-                        borderRadius: "999px",
-                        padding: "1px 8px",
-                        fontFamily: "monospace",
-                        letterSpacing: "0.08em",
-                        whiteSpace: "nowrap",
-                        pointerEvents: "none",
-                      }}>START</span>
+                      <g>
+                        <rect x={node.x - 23} y={node.y - 36} width="46" height="15"
+                          rx="7.5" fill="rgba(96,165,250,0.18)"
+                          stroke="rgba(96,165,250,0.45)" strokeWidth="1" />
+                        <text x={node.x} y={node.y - 26}
+                          textAnchor="middle" fill="#93c5fd"
+                          fontSize="8.5" fontFamily="monospace" letterSpacing="1">
+                          START
+                        </text>
+                      </g>
                     )}
 
-                    {/* Year label — below the circle */}
-                    <span style={{
-                      position: "absolute",
-                      top: "calc(100% + 5px)",
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      fontSize: "10px",
-                      color: "rgba(255,255,255,0.35)",
-                      fontFamily: "monospace",
-                      lineHeight: 1,
-                      whiteSpace: "nowrap",
-                      pointerEvents: "none",
-                    }}>
-                      {node.year}{node.isLatest && <span style={{ color: "#4ade80", marginLeft: "3px" }}>●</span>}
-                    </span>
-                  </motion.div>
+                    {/* Year — below dot */}
+                    <text x={node.x} y={node.y + 23}
+                      textAnchor="middle"
+                      fill="rgba(255,255,255,0.35)"
+                      fontSize="10" fontFamily="monospace">
+                      {node.year}
+                      {node.isLatest && (
+                        <tspan fill="#4ade80" dx="3">●</tspan>
+                      )}
+                    </text>
+                  </motion.g>
                 );
               })}
-            </div>
+            </svg>
           </motion.div>
         </div>
 
@@ -328,7 +270,9 @@ export default function Skills() {
             Progression path
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "rgba(255,255,255,0.32)" }}>
-            <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#60a5fa", boxShadow: "0 0 6px 2px #60a5fa44" }} />
+            <svg width="12" height="12" viewBox="0 0 12 12">
+              <circle cx="6" cy="6" r="5" fill="#60a5fa" style={{ filter: "drop-shadow(0 0 3px #60a5fa88)" }} />
+            </svg>
             Skill acquired
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", color: "#4ade80" }}>
