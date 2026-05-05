@@ -11,7 +11,7 @@ const experiences = [
     role: "Software Engineer",
     company: "ByGomes",
     date: "May 2025 – Present",
-    location: "Remote",
+    location: "Newark, NJ",
     color: "#34d399",
     tags: ["JavaScript", "Web Development", "Automation", "APIs", "Performance"],
     icons: [FiCode, FaGlobe, MdOutlineAutorenew],
