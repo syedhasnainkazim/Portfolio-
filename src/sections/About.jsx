@@ -168,18 +168,22 @@ export default function About() {
                 height: "480px",
               }}
             >
-              <img
-                src="/images/Profile.jpg"
-                alt="Syed Kazim"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "block",
-                  objectFit: "cover",
-                  objectPosition: "center top",
-                  imageRendering: "auto",
-                }}
-              />
+              <picture>
+                <source srcSet="/images/Profile.webp" type="image/webp" />
+                <img
+                  src="/images/Profile.jpg"
+                  alt="Syed Kazim"
+                  loading="lazy"
+                  decoding="async"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "block",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                  }}
+                />
+              </picture>
             </div>
 
             {/* NJIT Photo */}
