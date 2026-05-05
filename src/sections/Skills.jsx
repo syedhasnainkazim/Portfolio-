@@ -5,35 +5,35 @@ const W = 920;
 const H = 480;
 
 // ─── LANE DEFINITIONS ────────────────────────────────────────────────────────
-// Labels sit just below each section separator line.
-// First lane has no top separator (it starts at the canvas top).
 const LANES = [
   { label: "Systems & Low-Level", color: "#a78bfa", labelY: 10,  lineY: null },
-  { label: "Web Development",     color: "#34d399", labelY: 191, lineY: 184  },
-  { label: "Data & Science",      color: "#f472b6", labelY: 348, lineY: 341  },
+  { label: "Web Development",     color: "#34d399", labelY: 196, lineY: 188  },
+  { label: "Data & Science",      color: "#f472b6", labelY: 354, lineY: 346  },
 ];
 
 // ─── NODES ───────────────────────────────────────────────────────────────────
+// Paired nodes that share an x column are spread 80px apart vertically
+// so their name+year labels never overlap each other or the paths.
 const NODES = [
   // ROOT — left edge, vertically centered in Web lane
   { id: "python",     name: "Python",      year: "2019", x: 45,  y: 270, color: "#60a5fa", isRoot: true },
 
-  // Systems lane  (y ≈ 80–135)
-  { id: "c",          name: "C",           year: "2019", x: 180, y: 105, color: "#a78bfa" },
-  { id: "cpp",        name: "C++",         year: "2020", x: 315, y: 80,  color: "#c084fc" },
-  { id: "java",       name: "Java",        year: "2020", x: 315, y: 133, color: "#e879f9" },
-  { id: "linux",      name: "Linux",       year: "2021", x: 460, y: 80,  color: "#f472b6" },
-  { id: "git",        name: "Git",         year: "2020", x: 460, y: 133, color: "#f97316" },
-  { id: "docker",     name: "Docker",      year: "2023", x: 610, y: 105, color: "#38bdf8" },
-  { id: "aws",        name: "AWS",         year: "2024", x: 762, y: 105, color: "#fcd34d" },
+  // Systems lane  (y ≈ 68–148)
+  { id: "c",          name: "C",           year: "2019", x: 180, y: 108, color: "#a78bfa" },
+  { id: "cpp",        name: "C++",         year: "2020", x: 315, y: 68,  color: "#c084fc" },
+  { id: "java",       name: "Java",        year: "2020", x: 315, y: 148, color: "#e879f9" },
+  { id: "linux",      name: "Linux",       year: "2021", x: 460, y: 68,  color: "#f472b6" },
+  { id: "git",        name: "Git",         year: "2020", x: 460, y: 148, color: "#f97316" },
+  { id: "docker",     name: "Docker",      year: "2023", x: 610, y: 108, color: "#38bdf8" },
+  { id: "aws",        name: "AWS",         year: "2024", x: 762, y: 108, color: "#fcd34d" },
 
-  // Web lane  (y ≈ 248–300)
+  // Web lane  (y ≈ 235–315)  — react/nodejs spread to 80px gap
   { id: "html_css",   name: "HTML / CSS",  year: "2019", x: 195, y: 270, color: "#34d399" },
-  { id: "javascript", name: "JavaScript",  year: "2021", x: 338, y: 255, color: "#fbbf24" },
-  { id: "react",      name: "React",       year: "2022", x: 480, y: 248, color: "#38bdf8" },
-  { id: "nodejs",     name: "Node.js",     year: "2022", x: 480, y: 298, color: "#4ade80" },
-  { id: "flask",      name: "Flask",       year: "2023", x: 624, y: 292, color: "#2dd4bf" },
-  { id: "typescript", name: "TypeScript",  year: "2024", x: 762, y: 260, color: "#3b82f6" },
+  { id: "javascript", name: "JavaScript",  year: "2021", x: 338, y: 258, color: "#fbbf24" },
+  { id: "react",      name: "React",       year: "2022", x: 480, y: 235, color: "#38bdf8" },
+  { id: "nodejs",     name: "Node.js",     year: "2022", x: 480, y: 315, color: "#4ade80" },
+  { id: "flask",      name: "Flask",       year: "2023", x: 624, y: 295, color: "#2dd4bf" },
+  { id: "typescript", name: "TypeScript",  year: "2024", x: 762, y: 258, color: "#3b82f6" },
 
   // Data lane  (y ≈ 412–430)
   { id: "sql",        name: "SQL",         year: "2020", x: 195, y: 418, color: "#f472b6" },
@@ -188,6 +188,9 @@ export default function Skills() {
               {/* ── NODES — everything in SVG coordinates, guaranteed aligned ── */}
               {NODES.map((node) => {
                 const delay = DELAYS[node.id];
+                // Estimate label widths for background rects (centered text)
+                const nameW = node.name.length * 7.2 + 12;
+                const yearW = node.year.length * 6.5 + (node.isLatest ? 14 : 0) + 10;
                 return (
                   <motion.g
                     key={node.id}
@@ -215,10 +218,17 @@ export default function Skills() {
                       style={{ filter: `drop-shadow(0 0 4px ${node.color}99) drop-shadow(0 0 10px ${node.color}44)` }}
                     />
 
+                    {/* Dark background behind name so paths don't bleed through */}
+                    <rect
+                      x={node.x - nameW / 2} y={node.y - 27}
+                      width={nameW} height={15} rx="3"
+                      fill="rgba(0,0,0,0.72)"
+                    />
+
                     {/* Name — above dot */}
                     <text x={node.x} y={node.y - 15}
                       textAnchor="middle"
-                      fill="rgba(255,255,255,0.88)"
+                      fill="rgba(255,255,255,0.92)"
                       fontSize="11.5" fontWeight="600"
                       fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
                       {node.name}
@@ -227,10 +237,10 @@ export default function Skills() {
                     {/* START badge — above the name */}
                     {node.isRoot && (
                       <g>
-                        <rect x={node.x - 23} y={node.y - 36} width="46" height="15"
+                        <rect x={node.x - 23} y={node.y - 44} width="46" height="15"
                           rx="7.5" fill="rgba(96,165,250,0.18)"
                           stroke="rgba(96,165,250,0.45)" strokeWidth="1" />
-                        <text x={node.x} y={node.y - 26}
+                        <text x={node.x} y={node.y - 34}
                           textAnchor="middle" fill="#93c5fd"
                           fontSize="8.5" fontFamily="monospace" letterSpacing="1">
                           START
@@ -238,10 +248,17 @@ export default function Skills() {
                       </g>
                     )}
 
+                    {/* Dark background behind year */}
+                    <rect
+                      x={node.x - yearW / 2} y={node.y + 13}
+                      width={yearW} height={13} rx="3"
+                      fill="rgba(0,0,0,0.65)"
+                    />
+
                     {/* Year — below dot */}
                     <text x={node.x} y={node.y + 23}
                       textAnchor="middle"
-                      fill="rgba(255,255,255,0.35)"
+                      fill="rgba(255,255,255,0.45)"
                       fontSize="10" fontFamily="monospace">
                       {node.year}
                       {node.isLatest && (
