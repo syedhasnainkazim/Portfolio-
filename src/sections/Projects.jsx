@@ -178,7 +178,7 @@ export default function Projects() {
                 background: project.imgBg || "transparent",
               }}>
                 {project.image ? (
-                  <picture>
+                  <picture style={{ display: "block", width: "100%", height: "100%" }}>
                     {project.image.endsWith(".jpg") && (
                       <source
                         srcSet={project.image.replace(".jpg", ".webp")}
