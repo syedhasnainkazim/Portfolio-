@@ -10,8 +10,8 @@ const CONTACT_LINKS = [
   {
     icon: MdEmail,
     label: "Email",
-    value: "syedhasnainkazim@gmail.com",
-    href: "mailto:syedhasnainkazim@gmail.com",
+    value: "smk88@njit.edu",
+    href: "mailto:smk88@njit.edu",
     color: "#60a5fa",
     glow: "rgba(96,165,250,0.25)",
   },
