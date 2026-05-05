@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import Tilt from "react-parallax-tilt";
 
+const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
 const projects = [
   {
     title: "CrypticChat",
@@ -152,15 +154,16 @@ export default function Projects() {
           {projects.map((project, index) => (
             <Tilt
               key={index}
+              tiltEnable={!isTouch}
               tiltMaxAngleX={8}
               tiltMaxAngleY={8}
-              glareEnable={true}
+              glareEnable={!isTouch}
               glareMaxOpacity={0.08}
               glareColor="#a5b4fc"
               glarePosition="all"
               glareBorderRadius="20px"
               perspective={1000}
-              scale={1.02}
+              scale={isTouch ? 1 : 1.02}
               transitionSpeed={600}
               style={{ borderRadius: "20px" }}
             >

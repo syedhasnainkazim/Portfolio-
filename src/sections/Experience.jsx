@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
+
+const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
 import { SiPython, SiFlask } from "react-icons/si";
 import { FaAmazon } from "react-icons/fa";
 import { FaDatabase, FaGlobe } from "react-icons/fa";
@@ -111,15 +113,16 @@ export default function Experience() {
 
               {/* Card */}
               <Tilt
+                tiltEnable={!isTouch}
                 tiltMaxAngleX={5}
                 tiltMaxAngleY={5}
-                glareEnable={true}
+                glareEnable={!isTouch}
                 glareMaxOpacity={0.06}
                 glareColor={exp.color}
                 glarePosition="all"
                 glareBorderRadius="20px"
                 perspective={1200}
-                scale={1.01}
+                scale={isTouch ? 1 : 1.01}
                 transitionSpeed={600}
                 style={{ width: "100%", borderRadius: "20px" }}
               >

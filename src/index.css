@@ -337,6 +337,9 @@ a.glass:focus-visible {
   .section {
     padding: 72px 20px;
   }
+  .section-title {
+    font-size: clamp(28px, 8vw, 40px);
+  }
   .section-subtitle {
     font-size: 14px;
     max-width: 100%;
@@ -369,18 +372,21 @@ a.glass:focus-visible {
     flex-direction: column !important;
     width: 100%;
   }
-  .hero-ctas a {
-    width: 100% !important;
-  }
+  .hero-ctas a,
   .hero-ctas button {
     width: 100% !important;
     justify-content: center;
+    text-align: center;
+  }
+  .hero-stats {
+    flex-wrap: wrap !important;
+    gap: 20px 32px !important;
   }
 
   /* ── About: stack columns; photos side-by-side, shorter ── */
   .about-grid {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+    gap: 28px !important;
   }
   .about-photos {
     display: flex !important;
@@ -389,17 +395,18 @@ a.glass:focus-visible {
   }
   .about-profile-photo {
     flex: 1;
-    height: 220px !important;
+    height: 240px !important;
   }
   .about-school-photo {
-    width: 110px !important;
+    width: 120px !important;
     flex-shrink: 0;
-    height: 220px !important;
+    height: 240px !important;
   }
 
   /* ── Projects: single column ── */
   .projects-grid {
     grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 
   /* ── Experience: full width, stack date below company ── */
@@ -421,7 +428,7 @@ a.glass:focus-visible {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     margin: 0 -20px;
-    padding: 0 20px 12px;
+    padding: 0 20px 16px;
   }
   .skills-scroll-wrapper::-webkit-scrollbar { display: none; }
   .skills-map {
@@ -432,7 +439,7 @@ a.glass:focus-visible {
   /* ── Contact: stack columns ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
-    gap: 12px !important;
+    gap: 16px !important;
     width: 100% !important;
   }
   .contact-grid > *,
@@ -449,7 +456,7 @@ a.glass:focus-visible {
     grid-template-columns: 1fr !important;
   }
   .contact-form-card {
-    padding: 20px 16px !important;
+    padding: 22px 18px !important;
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -464,6 +471,9 @@ a.glass:focus-visible {
   .section {
     padding: 60px 16px;
   }
+  .section-title {
+    font-size: clamp(26px, 9vw, 36px);
+  }
   .nav-pill a {
     font-size: 11px !important;
     padding: 4px 9px !important;
@@ -475,8 +485,15 @@ a.glass:focus-visible {
     min-width: 760px !important;
     width: 760px !important;
   }
-  /* Tighter experience card on very small screens */
   .experience-timeline {
     padding-left: 0 !important;
+  }
+  /* Tighten experience cards on very small screens */
+  .experience-timeline > div {
+    margin-bottom: 28px !important;
+  }
+  /* Project image height on small screens */
+  .project-card > div:first-child {
+    height: 180px !important;
   }
 }
