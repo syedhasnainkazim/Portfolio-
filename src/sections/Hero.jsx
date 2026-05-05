@@ -14,7 +14,7 @@ const STATS = [
 ];
 
 const SOCIALS = [
-  { href: "mailto:syedhasnainkazim@gmail.com",   Icon: MdEmail,    label: "Email"    },
+  { href: "mailto:smk88@njit.edu",   Icon: MdEmail,    label: "Email"    },
   { href: "https://github.com/syedhasnainkazim", Icon: FaGithub,   label: "GitHub"   },
   { href: "https://www.linkedin.com/in/syed-hasnain-kazim1", Icon: FaLinkedin, label: "LinkedIn" },
 ];
