@@ -10,7 +10,7 @@ import Hero3D from "../components/Hero3D";
 const STATS = [
   { value: "3+",  label: "Yrs Experience" },
   { value: "10+", label: "Projects Built"  },
-  { value: "2",   label: "Companies"       },
+  { value: "3",   label: "Companies"       },
 ];
 
 const SOCIALS = [
