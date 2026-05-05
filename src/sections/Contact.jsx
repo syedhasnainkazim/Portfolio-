@@ -4,7 +4,7 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FiSend, FiArrowUpRight } from "react-icons/fi";
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xzzblwvn";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mykojkpd";
 
 const CONTACT_LINKS = [
   {
