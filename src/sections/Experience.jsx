@@ -2,10 +2,25 @@ import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { SiPython, SiFlask } from "react-icons/si";
 import { FaAmazon } from "react-icons/fa";
-import { FaDatabase } from "react-icons/fa";
-import { MdOutlineAnalytics } from "react-icons/md";
+import { FaDatabase, FaGlobe } from "react-icons/fa";
+import { MdOutlineAnalytics, MdOutlineAutorenew } from "react-icons/md";
+import { FiCode } from "react-icons/fi";
 
 const experiences = [
+  {
+    role: "Software Engineer",
+    company: "ByGomes",
+    date: "May 2025 – Present",
+    location: "Remote",
+    color: "#34d399",
+    tags: ["JavaScript", "Web Development", "Automation", "APIs", "Performance"],
+    icons: [FiCode, FaGlobe, MdOutlineAutorenew],
+    points: [
+      "Develop and maintain digital systems and web properties across the NOVU platform, handling feature updates, third-party integrations, and performance optimization.",
+      "Build automation workflows for content distribution, data collection, and operational reporting — reducing manual overhead across recurring processes.",
+      "Provide on-site technical support during live activations and weekend events, ensuring reliable execution of digital operations under real-time conditions.",
+    ],
+  },
   {
     role: "Data Analyst",
     company: "Victoria Solutions",
