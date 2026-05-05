@@ -5,29 +5,16 @@ export default function CustomCursor() {
   const ringRef = useRef();
 
   useEffect(() => {
-    let mouseX = 0, mouseY = 0;
-    let ringX  = 0, ringY  = 0;
-    let raf;
-
     const onMove = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+      const x = e.clientX;
+      const y = e.clientY;
 
-      // Dot snaps instantly
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+        dotRef.current.style.transform = `translate(${x}px, ${y}px)`;
       }
-    };
-
-    // Ring follows with lerp (smooth lag)
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.11;
-      ringY += (mouseY - ringY) * 0.11;
-
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ringX}px, ${ringY}px)`;
+        ringRef.current.style.transform = `translate(${x}px, ${y}px)`;
       }
-      raf = requestAnimationFrame(animate);
     };
 
     // Scale ring up on hover over interactive elements
@@ -58,15 +45,12 @@ export default function CustomCursor() {
         });
     };
 
-    window.addEventListener("mousemove", onMove);
-    raf = requestAnimationFrame(animate);
+    window.addEventListener("mousemove", onMove, { passive: true });
 
-    // Wait a tick for DOM to be ready, then attach hover listeners
     const timeout = setTimeout(addListeners, 600);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
       clearTimeout(timeout);
     };
   }, []);
