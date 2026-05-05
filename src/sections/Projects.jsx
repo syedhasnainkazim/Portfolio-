@@ -178,15 +178,25 @@ export default function Projects() {
                 background: project.imgBg || "transparent",
               }}>
                 {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    style={{
-                      width: "100%", height: "100%", display: "block",
-                      objectFit: project.imgFit || "cover",
-                      objectPosition: project.imgPosition || "center",
-                    }}
-                  />
+                  <picture>
+                    {project.image.endsWith(".jpg") && (
+                      <source
+                        srcSet={project.image.replace(".jpg", ".webp")}
+                        type="image/webp"
+                      />
+                    )}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      decoding="async"
+                      style={{
+                        width: "100%", height: "100%", display: "block",
+                        objectFit: project.imgFit || "cover",
+                        objectPosition: project.imgPosition || "center",
+                      }}
+                    />
+                  </picture>
                 ) : (
                   <PlaceholderArt art={project.art} />
                 )}
