@@ -12,7 +12,7 @@ const experiences = [
   {
     role: "Software Engineer",
     company: "ByGomes",
-    date: "May 2025 – Present",
+    date: "May 2026 – Present",
     location: "Newark, NJ",
     color: "#34d399",
     tags: ["JavaScript", "Web Development", "Automation", "APIs", "Performance"],
@@ -46,9 +46,9 @@ const experiences = [
     tags: ["Flask", "AWS EC2", "PostgreSQL", "Authentication"],
     icons: [SiFlask, FaAmazon, FaDatabase],
     points: [
-      "Developed secure authentication systems and asynchronous backend services using Flask.",
-      "Designed and maintained cloud-based backend infrastructure on AWS EC2 with monitoring and logging.",
-      "Optimized backend performance and database queries to support long-term scalability.",
+      "Built and shipped the company's full client-facing web platform from scratch — handling backend API design, user authentication with JWT, and session management using Flask and PostgreSQL.",
+      "Deployed and managed the production environment on AWS EC2, configuring server monitoring, automated logging, and uptime alerts that kept the platform running reliably over a 2-year span.",
+      "Integrated an online booking system that replaced manual phone scheduling, cutting appointment coordination time by ~3 hours per week and enabling 24/7 client self-service.",
     ],
   },
 ];
