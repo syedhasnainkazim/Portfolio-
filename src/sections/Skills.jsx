@@ -8,7 +8,7 @@ const H = 480;
 const LANES = [
   { label: "Systems & Low-Level", color: "#a78bfa", labelY: 10,  lineY: null },
   { label: "Web Development",     color: "#34d399", labelY: 196, lineY: 188  },
-  { label: "Data & Science",      color: "#f472b6", labelY: 354, lineY: 346  },
+  { label: "Data & Science",      color: "#f472b6", labelY: 363, lineY: 355  },
 ];
 
 // ─── NODES ───────────────────────────────────────────────────────────────────
@@ -36,9 +36,9 @@ const NODES = [
   { id: "typescript", name: "TypeScript",  year: "2024", x: 762, y: 258, color: "#3b82f6" },
 
   // Data lane  (y ≈ 412–430)
-  { id: "sql",        name: "SQL",         year: "2020", x: 195, y: 418, color: "#f472b6" },
-  { id: "postgresql", name: "PostgreSQL",  year: "2022", x: 347, y: 430, color: "#fb923c" },
-  { id: "ml_ai",      name: "ML / AI",     year: "2026", x: 762, y: 418, color: "#a5b4fc", isLatest: true },
+  { id: "sql",        name: "SQL",         year: "2020", x: 195, y: 410, color: "#f472b6" },
+  { id: "postgresql", name: "PostgreSQL",  year: "2022", x: 347, y: 422, color: "#fb923c" },
+  { id: "ml_ai",      name: "ML / AI",     year: "2026", x: 762, y: 410, color: "#a5b4fc", isLatest: true },
 ];
 
 // ─── EDGES ───────────────────────────────────────────────────────────────────
