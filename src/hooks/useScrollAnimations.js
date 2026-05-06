@@ -61,12 +61,12 @@ export default function useScrollAnimations() {
         );
       });
 
-      // ── About bio paragraphs: slide in from left
+      // ── About bio paragraphs: fade up
       gsap.utils.toArray(".about-bio p").forEach((el, i) => {
         gsap.fromTo(el,
-          { opacity: 0, x: -40 },
+          { opacity: 0, y: 24 },
           {
-            opacity: 1, x: 0,
+            opacity: 1, y: 0,
             duration: 0.6,
             ease: "power2.out",
             delay: i * 0.1,
