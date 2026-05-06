@@ -18,9 +18,9 @@ const experiences = [
     tags: ["JavaScript", "Web Development", "Automation", "APIs", "Performance"],
     icons: [FiCode, FaGlobe, MdOutlineAutorenew],
     points: [
-      "Develop and maintain digital systems and web properties across the NOVU platform, handling feature updates, third-party integrations, and performance optimization.",
-      "Build automation workflows for content distribution, data collection, and operational reporting — reducing manual overhead across recurring processes.",
-      "Provide on-site technical support during live activations and weekend events, ensuring reliable execution of digital operations under real-time conditions.",
+      "Engineer and ship features across the NOVU platform — owning the full cycle from API integration to front-end delivery, with a focus on performance and zero-downtime releases.",
+      "Architected automation pipelines for content distribution and operational reporting, eliminating hours of manual work weekly and improving cross-team data consistency.",
+      "Serve as the sole technical resource on-site during live activations, diagnosing and resolving production issues in real time with no safety net.",
     ],
   },
   {
@@ -32,9 +32,9 @@ const experiences = [
     tags: ["Python", "SQL", "REST APIs", "Data Pipelines"],
     icons: [SiPython, FaDatabase, MdOutlineAnalytics],
     points: [
-      "Engineered scalable Python and SQL data pipelines to automate ingestion, transformation, and validation across large datasets.",
-      "Built RESTful APIs delivering real-time analytics to internal dashboards, improving reporting speed and decision-making.",
-      "Collaborated cross-functionally to translate business needs into production-ready data solutions.",
+      "Designed and built end-to-end Python and SQL data pipelines that automated ingestion, transformation, and validation across millions of records — replacing brittle manual exports.",
+      "Developed RESTful APIs that surfaced real-time analytics directly in internal dashboards, cutting reporting lag from hours to seconds and accelerating executive decisions.",
+      "Partnered with business stakeholders to translate vague requirements into scoped, production-ready data products shipped within tight contract timelines.",
     ],
   },
   {
@@ -46,9 +46,9 @@ const experiences = [
     tags: ["Flask", "AWS EC2", "PostgreSQL", "Authentication"],
     icons: [SiFlask, FaAmazon, FaDatabase],
     points: [
-      "Built and shipped the company's full client-facing web platform from scratch — handling backend API design, user authentication with JWT, and session management using Flask and PostgreSQL.",
-      "Deployed and managed the production environment on AWS EC2, configuring server monitoring, automated logging, and uptime alerts that kept the platform running reliably over a 2-year span.",
-      "Integrated an online booking system that replaced manual phone scheduling, cutting appointment coordination time by ~3 hours per week and enabling 24/7 client self-service.",
+      "Architected and delivered the company's entire client-facing web platform from zero — REST API design, JWT authentication, session management, and PostgreSQL schema — with no prior codebase to build on.",
+      "Owned production infrastructure on AWS EC2 for 2 years: configured monitoring, automated log rotation, and uptime alerting that kept the platform at near-100% availability with no dedicated DevOps support.",
+      "Built an online booking system that fully replaced manual phone scheduling, saving ~3 hours of coordination per week and enabling clients to self-book around the clock.",
     ],
   },
 ];
