@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const STAR_COUNT = 7;
+const STAR_COUNT = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? 3 : 7;
 
 function generateStar(id) {
   const w = typeof window !== "undefined" ? window.innerWidth  : 1400;
