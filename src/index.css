@@ -306,6 +306,14 @@ a:hover {
   border-radius: 999px;
 }
 
+/* Nav layout: inline links on desktop, mobile menu hidden by default */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-mobile-menu { display: none !important; }
+
 /* Buttons keep their own border-radius */
 button:focus-visible {
   border-radius: 12px;
@@ -339,22 +347,16 @@ a.glass:focus-visible {
     max-width: 100%;
   }
 
-  /* ── Navbar: scrollable pill, no overflow ── */
+  /* ── Navbar: collapse to hamburger ── */
   .nav-pill {
-    max-width: calc(100vw - 24px) !important;
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
     padding: 8px 12px !important;
-    gap: 2px !important;
     top: 12px !important;
   }
-  .nav-pill::-webkit-scrollbar { display: none; }
-  .nav-pill a {
-    font-size: 12px !important;
-    padding: 5px 10px !important;
-    white-space: nowrap;
-  }
+  /* Hide the inline link row, reveal the hamburger button */
+  .nav-links { display: none !important; }
+  .nav-hamburger { display: inline-flex !important; }
+  /* Mobile dropdown shows only when toggled open */
+  .nav-mobile-menu.open { display: flex !important; }
 
   /* ── Hero: push Sun off-screen, stack CTA buttons full-width ── */
   .sun-wrap {

@@ -14,6 +14,7 @@ const projects = [
     art: null,
     stack: ["React", "Node.js", "MongoDB", "Socket.IO", "JWT", "Express"],
     github: "https://github.com/syedhasnainkazim/Cryptic-Chat",
+    live: "https://crypticchat-p7v8.onrender.com/login",
   },
   {
     title: "Applied Style NJ",
@@ -36,6 +37,7 @@ const projects = [
     art: null,
     stack: ["React", "Node.js", "PostgreSQL", "Chart.js", "JWT", "REST APIs"],
     github: "https://github.com/syedhasnainkazim/Fin-Track/tree/main",
+    live: "https://fintrack-cha6.onrender.com/",
   },
   {
     title: "AutoMatch",

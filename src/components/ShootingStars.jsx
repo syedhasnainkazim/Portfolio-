@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
-const STAR_COUNT = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? 3 : 7;
+const STAR_COUNT = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? 2 : 4;
 
 function generateStar(id) {
   const w = typeof window !== "undefined" ? window.innerWidth  : 1400;
   const h = typeof window !== "undefined" ? window.innerHeight : 900;
 
+  // Spawn from the top edge or upper-left so streaks fall down-right naturally
   const spawnZone = Math.floor(Math.random() * 3);
   let startX, startY;
 
@@ -14,10 +15,10 @@ function generateStar(id) {
     startY = -20;
   } else if (spawnZone === 1) {
     startX = -30;
-    startY = Math.random() * h * 0.6;
+    startY = Math.random() * h * 0.55;
   } else {
-    startX = w * 0.3 + Math.random() * w * 0.7;
-    startY = Math.random() * h * 0.4;
+    startX = w * 0.25 + Math.random() * w * 0.75;
+    startY = Math.random() * h * 0.35;
   }
 
   const angleGroup = Math.floor(Math.random() * 3);
@@ -26,33 +27,36 @@ function generateStar(id) {
   else if (angleGroup === 1) angle = 22 + Math.random() * 18;  // classic diagonal
   else                       angle = 42 + Math.random() * 22;  // steep
 
-  const TRAVEL_OPTIONS = [280, 380, 480, 580];
-  const length   = 80 + Math.random() * 160;
-  const travel   = TRAVEL_OPTIONS[Math.floor(Math.random() * TRAVEL_OPTIONS.length)];
-  const duration = 0.9 + Math.random() * 1.6;
-  const delay    = Math.random() * 40; // wide spread so they don't bunch up
+  const length   = 70 + Math.random() * 150;
+  const travel   = 320 + Math.random() * 320;
+  const duration = 0.9 + Math.random() * 1.4;
+  // Time before this star next appears after finishing — wide, randomized spread
+  const restDelay = 2.5 + Math.random() * 8;
 
-  return { id, startX, startY, angle, length, travel, duration, delay };
+  return { id, startX, startY, angle, length, travel, duration, restDelay };
 }
 
 export default function ShootingStars() {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
-    setStars(Array.from({ length: STAR_COUNT }, (_, i) => generateStar(i)));
-
-    // Refresh one star at a time at a relaxed pace
-    const interval = setInterval(() => {
-      setStars(prev => {
-        const idx = Math.floor(Math.random() * prev.length);
-        const next = [...prev];
-        next[idx] = generateStar(Date.now());
-        return next;
-      });
-    }, 7000);
-
-    return () => clearInterval(interval);
+    // Stagger the initial appearance so they don't all streak at once
+    setStars(
+      Array.from({ length: STAR_COUNT }, (_, i) => {
+        const s = generateStar(`init-${i}-${Date.now()}`);
+        return { ...s, restDelay: Math.random() * 6 };
+      })
+    );
   }, []);
+
+  // When a star finishes its single run, respawn it fresh after a random rest
+  const respawn = (slot) => {
+    setStars(prev => {
+      const next = [...prev];
+      next[slot] = generateStar(`${slot}-${Date.now()}-${Math.random()}`);
+      return next;
+    });
+  };
 
   return (
     <div style={{
@@ -62,7 +66,7 @@ export default function ShootingStars() {
       overflow: "hidden",
       zIndex: 0,
     }}>
-      {stars.map((star) => (
+      {stars.map((star, slot) => (
         <div
           key={star.id}
           style={{
@@ -73,14 +77,17 @@ export default function ShootingStars() {
           }}
         >
           <div
+            onAnimationEnd={() => respawn(slot)}
             style={{
               width: star.length,
               height: "2px",
-              animationName: `shootStar_${Math.round(star.travel)}`,
+              "--travel": `${star.travel}px`,
+              animationName: "shootStar",
               animationDuration: `${star.duration}s`,
-              animationDelay: `${star.delay}s`,
+              animationDelay: `${star.restDelay}s`,
               animationTimingFunction: "ease-out",
-              animationIterationCount: "infinite",
+              animationIterationCount: 1,
+              animationFillMode: "both",
               opacity: 0,
               position: "relative",
             }}
@@ -109,15 +116,12 @@ export default function ShootingStars() {
       ))}
 
       <style>{`
-        /* Generate keyframes for a spread of travel distances */
-        ${[280, 380, 480, 580].map(t => `
-          @keyframes shootStar_${t} {
-            0%   { opacity: 0;   transform: translateX(0); }
-            6%   { opacity: 1; }
-            80%  { opacity: 0.85; }
-            100% { opacity: 0;   transform: translateX(${t}px); }
-          }
-        `).join("")}
+        @keyframes shootStar {
+          0%   { opacity: 0;   transform: translateX(0); }
+          8%   { opacity: 1; }
+          75%  { opacity: 0.85; }
+          100% { opacity: 0;   transform: translateX(var(--travel)); }
+        }
       `}</style>
     </div>
   );
