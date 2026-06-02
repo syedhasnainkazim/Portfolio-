@@ -14,7 +14,6 @@ import ScrollExtras from "./components/ScrollExtras";
 import Loader from "./components/Loader";
 import Sparkles from "./components/Sparkles";
 import useScrollAnimations from "./hooks/useScrollAnimations";
-import CustomCursor from "./components/CustomCursor";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -28,7 +27,6 @@ function App() {
 
       <div className="app-root">
         {/* 🌌 GLOBAL BACKGROUND */}
-        <CustomCursor />
         <Background />
         <Sparkles />
         <ShootingStars />

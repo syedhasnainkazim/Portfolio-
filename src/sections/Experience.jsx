@@ -10,17 +10,17 @@ import { FiCode } from "react-icons/fi";
 
 const experiences = [
   {
-    role: "Software Engineer",
-    company: "ByGomes",
+    role: "Operations & System Analyst",
+    company: "Gomes Group",
     date: "May 2026 – Present",
     location: "Newark, NJ",
     color: "#34d399",
-    tags: ["JavaScript", "Web Development", "Automation", "APIs", "Performance"],
-    icons: [FiCode, FaGlobe, MdOutlineAutorenew],
+    tags: ["Python", "Flask", "PostgreSQL", "React", "Automation", "RBAC"],
+    icons: [MdOutlineAutorenew, MdOutlineAnalytics, FiCode],
     points: [
-      "Engineer and ship features across the NOVU platform — owning the full cycle from API integration to front-end delivery, with a focus on performance and zero-downtime releases.",
-      "Architected automation pipelines for content distribution and operational reporting, eliminating hours of manual work weekly and improving cross-team data consistency.",
-      "Serve as the sole technical resource on-site during live activations, diagnosing and resolving production issues in real time with no safety net.",
+      "Wrote Python scripts against Yardi's REST API to extract and sync property records into a locally hosted PostgreSQL database — eliminated per-seat SaaS licensing costs and gave teams direct SQL access to their own data without routing every lookup through Yardi.",
+      "Built the company's internal employee portal end-to-end with Flask + React: JWT-based auth, role-based access control, and isolated database views scoped per department (leasing, ops, property management, marketing) so each team only sees their section.",
+      "Sole developer with no IT team — took requirements directly from department heads, shipped and maintained features on a live Flask/PostgreSQL/React stack across all active departments.",
     ],
   },
   {
@@ -29,12 +29,12 @@ const experiences = [
     date: "Apr 2025 – Jun 2025",
     location: "Remote",
     color: "#60a5fa",
-    tags: ["Python", "SQL", "REST APIs", "Data Pipelines"],
+    tags: ["Python", "SQL", "Pandas", "PostgreSQL", "REST APIs", "Pipelines"],
     icons: [SiPython, FaDatabase, MdOutlineAnalytics],
     points: [
-      "Designed and built end-to-end Python and SQL data pipelines that automated ingestion, transformation, and validation across millions of records — replacing brittle manual exports.",
-      "Developed RESTful APIs that surfaced real-time analytics directly in internal dashboards, cutting reporting lag from hours to seconds and accelerating executive decisions.",
-      "Partnered with business stakeholders to translate vague requirements into scoped, production-ready data products shipped within tight contract timelines.",
+      "Built Python + Pandas ingestion pipelines that processed 50M+ records daily — parallelized worker jobs and added PostgreSQL indexed views, cutting end-to-end ingestion latency by ~40% vs. the previous sequential approach.",
+      "Developed Flask REST APIs that exposed real-time analytics to internal dashboards, replacing manual reporting cycles that previously took hours with sub-second query responses.",
+      "Restructured Victoria Solutions' raw datasets into normalized PostgreSQL schemas with SQLAlchemy ORM, replacing ad-hoc manual analysis with reusable Pandas pipelines — making the data maintainable and readable by non-technical team members.",
     ],
   },
   {
@@ -43,12 +43,12 @@ const experiences = [
     date: "Jan 2023 – Feb 2025",
     location: "Edison, NJ",
     color: "#a5b4fc",
-    tags: ["Flask", "AWS EC2", "PostgreSQL", "Authentication"],
+    tags: ["Flask", "React", "AWS EC2", "PostgreSQL", "JWT"],
     icons: [SiFlask, FaAmazon, FaDatabase],
     points: [
-      "Architected and delivered the company's entire client-facing web platform from zero — REST API design, JWT authentication, session management, and PostgreSQL schema — with no prior codebase to build on.",
-      "Owned production infrastructure on AWS EC2 for 2 years: configured monitoring, automated log rotation, and uptime alerting that kept the platform at near-100% availability with no dedicated DevOps support.",
-      "Built an online booking system that fully replaced manual phone scheduling, saving ~3 hours of coordination per week and enabling clients to self-book around the clock.",
+      "Architected the company's entire client-facing platform from zero using Flask + React — designed the REST API, JWT session management, and PostgreSQL schema with no prior codebase to start from.",
+      "Owned production infrastructure on AWS EC2 for 2 years: set up CloudWatch monitoring, automated log rotation with cron + logrotate, and uptime alerting that kept the platform at near-100% availability with no dedicated DevOps support.",
+      "Built an online booking system with React + Flask that replaced phone-only scheduling — clients self-book around the clock, saving ~3 hrs/week of manual coordination.",
     ],
   },
 ];

@@ -7,7 +7,7 @@ const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: co
 const projects = [
   {
     title: "CrypticChat",
-    desc: "Real-time encrypted messaging app built on Socket.IO — handles bi-directional communication across multiple rooms with sub-100ms message delivery. AES end-to-end encryption and JWT auth keep sessions secure; live presence indicators show who's online.",
+    desc: "Built the entire backend from scratch with Node.js + Express + Socket.IO — each room runs as an isolated Socket.IO namespace so messages never bleed across conversations. Client-side AES-256 encrypts every message before it leaves the browser, meaning the server only ever stores ciphertext and can't read user messages even with DB access. JWT auth handles sessions; presence tracking uses heartbeat events with a 10s timeout before marking users offline. MongoDB stores message history with TTL indexes so old messages expire automatically.",
     image: "/images/CrypticChat.jpg",
     imgFit: "cover",
     imgPosition: "center top",
@@ -17,7 +17,7 @@ const projects = [
   },
   {
     title: "Applied Style NJ",
-    desc: "Live production site for an automotive detail studio in Edison, NJ. Integrated online booking replaced phone-only scheduling, cutting appointment coordination time by ~3 hrs/week. Deployed on Netlify with CI/CD from GitHub.",
+    desc: "Live production site for an automotive detail studio in Edison, NJ — has been running and taking real bookings since 2023. The online scheduler replaced a phone-only system: clients pick a service, choose a time slot, and get a confirmation email automatically. The Flask backend manages slot availability so double-bookings are impossible. Saved the owner ~3 hrs/week of manual coordination. Deployed on Netlify with CI/CD from GitHub; backend on a separate server.",
     image: "/images/aps-photo.jpg",
     imgFit: "contain",
     imgPosition: "center",
@@ -29,17 +29,17 @@ const projects = [
   },
   {
     title: "FinTrack",
-    desc: "Personal finance dashboard backed by a PostgreSQL REST API with sub-200ms response times. Tracks spending across custom categories with interactive charts; JWT auth with refresh token rotation keeps sessions secure without frequent re-logins.",
+    desc: "Personal finance dashboard with a Node.js + PostgreSQL REST API — all endpoints respond under 200ms on indexed queries. Users track income and spending across custom budget categories; Chart.js renders spending trends and cash flow breakdowns. JWT auth uses short-lived access tokens (15 min) with refresh token rotation so sessions stay alive across browser restarts without re-prompting for credentials. All dollar amounts stored as integers in cents to avoid floating point rounding bugs entirely.",
     image: "/images/FinTrack.jpg",
     imgFit: "cover",
     imgPosition: "center top",
     art: null,
-    stack: ["React", "Node.js", "PostgreSQL", "JWT", "REST APIs"],
+    stack: ["React", "Node.js", "PostgreSQL", "Chart.js", "JWT", "REST APIs"],
     github: "https://github.com/syedhasnainkazim/Fin-Track/tree/main",
   },
   {
     title: "AutoMatch",
-    desc: "Vehicle recommendation engine combining a Python ML model with PostgreSQL full-text search across thousands of listings. Collaborative filtering ranks results by user preference signals; Next.js SSR cuts initial page load by ~40% vs. a pure client-side fetch.",
+    desc: "Vehicle recommendation engine where users answer a short preference survey (budget, body style, mileage tolerance) and get a ranked list of matching listings. A Python collaborative filtering model scores vehicles based on similar users' choices; PostgreSQL full-text search handles keyword queries across thousands of listings in parallel. Next.js SSR pre-renders the listing page on first load so users see results immediately instead of waiting for a client-side API fetch — cut initial paint time by ~40% vs. a pure CSR approach.",
     image: "/images/AutoMatch.jpg",
     imgFit: "cover",
     imgPosition: "center",

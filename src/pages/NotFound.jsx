@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import Background from "../components/Background";
 import ShootingStars from "../components/ShootingStars";
 
@@ -11,7 +11,7 @@ export default function NotFound() {
       <div style={{ position: "relative", zIndex: 1, textAlign: "center", padding: "40px 24px" }}>
 
         {/* Comment label */}
-        <motion.p
+        <Motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
@@ -24,10 +24,10 @@ export default function NotFound() {
           }}
         >
           {"// error 404"}
-        </motion.p>
+        </Motion.p>
 
         {/* Big 404 */}
-        <motion.h1
+        <Motion.h1
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -43,10 +43,10 @@ export default function NotFound() {
           }}
         >
           404
-        </motion.h1>
+        </Motion.h1>
 
         {/* Subtitle */}
-        <motion.p
+        <Motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.28 }}
@@ -60,10 +60,10 @@ export default function NotFound() {
           }}
         >
           This page drifted into deep space.<br />Let's get you back.
-        </motion.p>
+        </Motion.p>
 
         {/* Home button */}
-        <motion.a
+        <Motion.a
           href="/"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ export default function NotFound() {
           }}
         >
           ← Back to home
-        </motion.a>
+        </Motion.a>
       </div>
     </div>
   );

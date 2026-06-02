@@ -26,7 +26,7 @@ const CONTACT_LINKS = [
   {
     icon: FaLinkedin,
     label: "LinkedIn",
-    value: "linkedin.com/in/syedkazim",
+    value: "linkedin.com/in/syed-hasnain-kazim1",
     href: "https://www.linkedin.com/in/syed-hasnain-kazim1",
     color: "#38bdf8",
     glow: "rgba(56,189,248,0.25)",
@@ -44,6 +44,15 @@ const CONTACT_LINKS = [
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [copied, setCopied] = useState(false);
+
+  function handleEmailCopy(e) {
+    e.preventDefault();
+    navigator.clipboard.writeText("smk88@njit.edu").then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -207,13 +216,26 @@ export default function Contact() {
                     </p>
                   </div>
                   {link.href && (
-                    <FiArrowUpRight size={15} color="rgba(255,255,255,0.25)" />
+                    link.label === "Email" ? (
+                      <span style={{ fontSize: "11px", color: copied ? "#4ade80" : "rgba(255,255,255,0.25)", transition: "color 0.2s", whiteSpace: "nowrap" }}>
+                        {copied ? "✓ copied" : "tap to copy"}
+                      </span>
+                    ) : (
+                      <FiArrowUpRight size={15} color="rgba(255,255,255,0.25)" />
+                    )
                   )}
                 </motion.div>
               );
 
               return link.href ? (
-                <a key={i} href={link.href} target={link.href.startsWith("mailto") ? "_self" : "_blank"} rel="noreferrer" style={{ textDecoration: "none", display: "block" }}>
+                <a
+                  key={i}
+                  href={link.href}
+                  target={link.href.startsWith("mailto") ? "_self" : "_blank"}
+                  rel="noreferrer"
+                  style={{ textDecoration: "none", display: "block" }}
+                  onClick={link.label === "Email" ? handleEmailCopy : undefined}
+                >
                   {inner}
                 </a>
               ) : (
@@ -240,8 +262,9 @@ export default function Contact() {
               {/* Name + Email row */}
               <div className="form-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
                 <div>
-                  <label style={labelStyle}>Name</label>
+                  <label htmlFor="contact-name" style={labelStyle}>Name</label>
                   <input
+                    id="contact-name"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
@@ -253,8 +276,9 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label style={labelStyle}>Email</label>
+                  <label htmlFor="contact-email" style={labelStyle}>Email</label>
                   <input
+                    id="contact-email"
                     name="email"
                     type="email"
                     value={form.email}
@@ -270,8 +294,9 @@ export default function Contact() {
 
               {/* Message */}
               <div>
-                <label style={labelStyle}>Message</label>
+                <label htmlFor="contact-message" style={labelStyle}>Message</label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   value={form.message}
                   onChange={handleChange}

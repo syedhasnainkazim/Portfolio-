@@ -229,6 +229,7 @@ export default function Hero() {
                 href={href}
                 target={href.startsWith("mailto") ? "_self" : "_blank"}
                 rel="noreferrer"
+                aria-label={label}
                 title={label}
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "center",

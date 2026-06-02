@@ -323,12 +323,6 @@ a.glass:focus-visible {
    📱 MOBILE RESPONSIVE
 ========================= */
 
-/* ── Touch devices: restore normal cursor + disable Tilt lag ── */
-@media (pointer: coarse) {
-  .custom-cursor-dot,
-  .custom-cursor-ring { display: none !important; }
-  * { cursor: auto !important; }
-}
 
 /* ── Tablet + mobile (≤768px) ── */
 @media (max-width: 768px) {
@@ -484,6 +478,11 @@ a.glass:focus-visible {
   .skills-map {
     min-width: 760px !important;
     width: 760px !important;
+  }
+  /* Re-align with the 16px section padding (overrides the 768px -20px) */
+  .skills-scroll-wrapper {
+    margin: 0 -16px !important;
+    padding: 0 16px 16px !important;
   }
   .experience-timeline {
     padding-left: 0 !important;

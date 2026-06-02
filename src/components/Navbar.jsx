@@ -34,7 +34,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div
+    <nav
+      aria-label="Main navigation"
       className="nav-pill"
       style={{
         position: "fixed",
@@ -103,6 +104,6 @@ export default function Navbar() {
           </a>
         );
       })}
-    </div>
+    </nav>
   );
 }

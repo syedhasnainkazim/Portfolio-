@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 export default function Loader({ onDone }) {
   const [filling, setFilling] = useState(false);
@@ -11,7 +11,7 @@ export default function Loader({ onDone }) {
   }, [onDone]);
 
   return (
-    <motion.div
+    <Motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
       style={{
@@ -27,7 +27,7 @@ export default function Loader({ onDone }) {
       }}
     >
       {/* Branded monogram */}
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
@@ -43,7 +43,7 @@ export default function Loader({ onDone }) {
         }}
       >
         {"{SK}"}
-      </motion.div>
+      </Motion.div>
 
       {/* Progress bar */}
       <div style={{
@@ -53,7 +53,7 @@ export default function Loader({ onDone }) {
         borderRadius: "999px",
         overflow: "hidden",
       }}>
-        <motion.div
+        <Motion.div
           initial={{ width: "0%" }}
           animate={{ width: filling ? "100%" : "0%" }}
           transition={{ duration: 1.2, ease: [0.4, 0, 0.2, 1] }}
@@ -64,6 +64,6 @@ export default function Loader({ onDone }) {
           }}
         />
       </div>
-    </motion.div>
+    </Motion.div>
   );
 }

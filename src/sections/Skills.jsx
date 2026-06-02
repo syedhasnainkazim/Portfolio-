@@ -134,11 +134,11 @@ export default function Skills() {
           transition={{ duration: 0.6, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          How one language branched into an entire toolkit — traced from the start.
+          Starting from Python, my skills branched into three tracks: Systems & Low-Level, Web Development, and Data & Science. Each arrow shows what led me to learn the next thing — where paths meet, those tools were used together on real projects.
         </motion.p>
 
         {/* ── MAP CANVAS ── */}
-        <div className="skills-scroll-wrapper">
+        <div className="skills-scroll-wrapper" style={{ position: "relative" }}>
           <motion.div
             className="skills-map"
             initial={{ opacity: 0 }}
@@ -272,6 +272,23 @@ export default function Skills() {
           </motion.div>
         </div>
 
+        {/* ── MOBILE SCROLL HINT ── */}
+        <div className="skills-scroll-hint" style={{
+          display: "none",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "6px",
+          marginTop: "10px",
+          fontSize: "11px",
+          color: "rgba(255,255,255,0.28)",
+          fontFamily: "monospace",
+          letterSpacing: "0.05em",
+        }}>
+          <span style={{ animation: "hintSlide 1.6s ease-in-out infinite" }}>←</span>
+          swipe to explore
+          <span style={{ animation: "hintSlide 1.6s ease-in-out infinite reverse" }}>→</span>
+        </div>
+
         {/* LEGEND */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -304,6 +321,13 @@ export default function Skills() {
         @keyframes latestPulse {
           0%, 100% { opacity: 0.8; transform: scale(1); }
           50%       { opacity: 0.1; transform: scale(1.9); }
+        }
+        @keyframes hintSlide {
+          0%, 100% { transform: translateX(0);    opacity: 0.4; }
+          50%       { transform: translateX(4px);  opacity: 1;   }
+        }
+        @media (pointer: coarse) {
+          .skills-scroll-hint { display: flex !important; }
         }
       `}</style>
     </section>
