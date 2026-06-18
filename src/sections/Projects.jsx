@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 import Tilt from "react-parallax-tilt";
@@ -7,6 +8,7 @@ const isTouch = typeof window !== "undefined" && window.matchMedia("(pointer: co
 const projects = [
   {
     title: "CrypticChat",
+    featured: true,
     desc: "Built the entire backend from scratch with Node.js + Express + Socket.IO — each room runs as an isolated Socket.IO namespace so messages never bleed across conversations. Client-side AES-256 encrypts every message before it leaves the browser, meaning the server only ever stores ciphertext and can't read user messages even with DB access. JWT auth handles sessions; presence tracking uses heartbeat events with a 10s timeout before marking users offline. MongoDB stores message history with TTL indexes so old messages expire automatically.",
     image: "/images/CrypticChat.jpg",
     imgFit: "cover",
@@ -59,7 +61,6 @@ function PlaceholderArt({ art }) {
       position: "relative",
       overflow: "hidden",
     }}>
-      {/* Subtle grid */}
       <div style={{
         position: "absolute", inset: 0,
         backgroundImage: `
@@ -68,16 +69,12 @@ function PlaceholderArt({ art }) {
         `,
         backgroundSize: "28px 28px",
       }} />
-
-      {/* Animated scan line */}
       <div style={{
         position: "absolute", left: 0, right: 0,
         height: "1px",
         background: `linear-gradient(90deg, transparent, ${art.dots[0]}55, transparent)`,
         animation: "scanLine 3s ease-in-out infinite",
       }} />
-
-      {/* Decorative code lines */}
       {art.lines.map((line, i) => (
         <div key={i} style={{
           position: "absolute",
@@ -88,8 +85,6 @@ function PlaceholderArt({ art }) {
           opacity: line.opacity * 6,
         }} />
       ))}
-
-      {/* Glowing dots */}
       {art.dots.map((c, i) => (
         <div key={i} style={{
           position: "absolute",
@@ -103,8 +98,6 @@ function PlaceholderArt({ art }) {
           animationDelay: `${i * 0.4}s`,
         }} />
       ))}
-
-      {/* Center icon */}
       <div style={{
         position: "absolute", inset: 0,
         display: "flex", alignItems: "center", justifyContent: "center",
@@ -119,11 +112,29 @@ function PlaceholderArt({ art }) {
 }
 
 export default function Projects() {
+  const [hoveredImg, setHoveredImg] = useState(null);
+
   return (
     <section id="projects" className="section">
       <div className="container">
 
         {/* HEADER */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          style={{
+            fontFamily: "monospace",
+            fontSize: "13px",
+            color: "#60a5fa",
+            letterSpacing: "0.06em",
+            marginBottom: "12px",
+          }}
+        >
+          {"// what I've built"}
+        </motion.p>
+
         <motion.h1
           className="section-title"
           initial={{ opacity: 0, y: 40 }}
@@ -178,10 +189,15 @@ export default function Projects() {
               style={{ overflow: "hidden", display: "flex", flexDirection: "column", height: "100%" }}
             >
               {/* IMAGE / ART */}
-              <div style={{
-                width: "100%", height: "220px", flexShrink: 0, overflow: "hidden",
-                background: project.imgBg || "transparent",
-              }}>
+              <div
+                style={{
+                  width: "100%", height: "220px", flexShrink: 0, overflow: "hidden",
+                  background: project.imgBg || "transparent",
+                  position: "relative",
+                }}
+                onMouseEnter={() => !isTouch && setHoveredImg(index)}
+                onMouseLeave={() => setHoveredImg(null)}
+              >
                 {project.image ? (
                   <picture style={{ display: "block", width: "100%", height: "100%" }}>
                     {project.image.endsWith(".jpg") && (
@@ -199,12 +215,96 @@ export default function Projects() {
                         width: "100%", height: "100%", display: "block",
                         objectFit: project.imgFit || "cover",
                         objectPosition: project.imgPosition || "center",
+                        transform: hoveredImg === index ? "scale(1.04)" : "scale(1)",
+                        transition: "transform 0.4s ease",
                       }}
                     />
                   </picture>
                 ) : (
                   <PlaceholderArt art={project.art} />
                 )}
+
+                {/* Featured badge */}
+                {project.featured && (
+                  <div style={{
+                    position: "absolute",
+                    top: "12px",
+                    left: "12px",
+                    padding: "3px 10px",
+                    borderRadius: "6px",
+                    background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                    color: "#fff",
+                    fontSize: "10px",
+                    fontWeight: 700,
+                    letterSpacing: "0.07em",
+                    textTransform: "uppercase",
+                    boxShadow: "0 2px 14px rgba(59,130,246,0.45)",
+                    zIndex: 10,
+                  }}>
+                    Featured
+                  </div>
+                )}
+
+                {/* Hover overlay with action buttons */}
+                <div style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "linear-gradient(to top, rgba(2,4,18,0.92) 0%, rgba(2,4,18,0.45) 55%, transparent 100%)",
+                  opacity: hoveredImg === index ? 1 : 0,
+                  transition: "opacity 0.25s ease",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  padding: "14px 16px",
+                  gap: "8px",
+                  pointerEvents: hoveredImg === index ? "auto" : "none",
+                }}>
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={e => e.stopPropagation()}
+                      style={{
+                        padding: "6px 14px",
+                        borderRadius: "8px",
+                        background: "linear-gradient(135deg, #3b82f6, #2563eb)",
+                        color: "#fff",
+                        fontSize: "12px",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                        textDecoration: "none",
+                        boxShadow: "0 4px 16px rgba(59,130,246,0.5)",
+                      }}
+                    >
+                      <FiExternalLink size={11} /> View Live
+                    </a>
+                  )}
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={e => e.stopPropagation()}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "8px",
+                      background: "rgba(255,255,255,0.12)",
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      color: "#fff",
+                      fontSize: "12px",
+                      fontWeight: 600,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "5px",
+                      textDecoration: "none",
+                      border: "1px solid rgba(255,255,255,0.18)",
+                    }}
+                  >
+                    <FiGithub size={11} /> GitHub
+                  </a>
+                </div>
               </div>
 
               {/* CONTENT */}
@@ -262,6 +362,49 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
+
+                {/* Touch link bar — hover overlay is inaccessible on touch devices */}
+                {isTouch && (
+                  <div style={{
+                    display: "flex", gap: "8px",
+                    borderTop: "1px solid rgba(255,255,255,0.07)",
+                    paddingTop: "12px", marginTop: "8px",
+                  }}>
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          flex: 1, padding: "9px 12px", borderRadius: "9px",
+                          background: "rgba(59,130,246,0.14)",
+                          border: "1px solid rgba(59,130,246,0.28)",
+                          color: "#60a5fa", fontSize: "12.5px", fontWeight: 600,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          gap: "5px", textDecoration: "none",
+                        }}
+                      >
+                        <FiExternalLink size={13} /> View Live
+                      </a>
+                    )}
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        flex: project.live ? 0 : 1,
+                        padding: "9px 14px", borderRadius: "9px",
+                        background: "rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.12)",
+                        color: "rgba(255,255,255,0.6)", fontSize: "12.5px", fontWeight: 600,
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        gap: "5px", textDecoration: "none", flexShrink: 0,
+                      }}
+                    >
+                      <FiGithub size={13} /> GitHub
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.div>
             </Tilt>

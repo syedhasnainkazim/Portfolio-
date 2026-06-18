@@ -352,13 +352,11 @@ a.glass:focus-visible {
     padding: 8px 12px !important;
     top: 12px !important;
   }
-  /* Hide the inline link row, reveal the hamburger button */
   .nav-links { display: none !important; }
   .nav-hamburger { display: inline-flex !important; }
-  /* Mobile dropdown shows only when toggled open */
   .nav-mobile-menu.open { display: flex !important; }
 
-  /* ── Hero: push Sun off-screen, stack CTA buttons full-width ── */
+  /* ── Hero ── */
   .sun-wrap {
     right: -420px !important;
     width: 400px !important;
@@ -379,7 +377,7 @@ a.glass:focus-visible {
     gap: 20px 32px !important;
   }
 
-  /* ── About: stack columns; photos side-by-side, shorter ── */
+  /* ── About: stack columns; photos side-by-side ── */
   .about-grid {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
@@ -397,6 +395,7 @@ a.glass:focus-visible {
     width: 120px !important;
     flex-shrink: 0;
     height: 240px !important;
+    padding: 10px 14px !important; /* override the desktop 24px 40px — keeps logo visible at 120px width */
   }
 
   /* ── Projects: single column ── */
@@ -405,7 +404,7 @@ a.glass:focus-visible {
     gap: 16px !important;
   }
 
-  /* ── Experience: full width, stack date below company ── */
+  /* ── Experience: full width, tighter cards ── */
   .experience-timeline {
     max-width: 100% !important;
   }
@@ -417,20 +416,15 @@ a.glass:focus-visible {
   .exp-top-row > div:last-child {
     text-align: left !important;
   }
+  .exp-glass-card {
+    padding: 18px 16px !important;
+  }
+  .exp-dot-gap {
+    gap: 16px !important;
+  }
 
-  /* ── Skills: horizontal scroll ── */
-  .skills-scroll-wrapper {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    margin: 0 -20px;
-    padding: 0 20px 16px;
-  }
-  .skills-scroll-wrapper::-webkit-scrollbar { display: none; }
-  .skills-map {
-    min-width: 860px !important;
-    width: 860px !important;
-  }
+  /* ── Skills canvas height ── */
+  .skills-canvas-wrap { height: 400px !important; }
 
   /* ── Contact: stack columns ── */
   .contact-grid {
@@ -470,31 +464,38 @@ a.glass:focus-visible {
   .section-title {
     font-size: clamp(26px, 9vw, 36px);
   }
-  .nav-pill a {
-    font-size: 11px !important;
-    padding: 4px 9px !important;
-  }
   .sun-wrap {
     display: none !important;
   }
-  .skills-map {
-    min-width: 760px !important;
-    width: 760px !important;
+
+  /* About: stack photos vertically on very small screens */
+  .about-photos {
+    flex-direction: column !important;
   }
-  /* Re-align with the 16px section padding (overrides the 768px -20px) */
-  .skills-scroll-wrapper {
-    margin: 0 -16px !important;
-    padding: 0 16px 16px !important;
+  .about-profile-photo {
+    height: 260px !important;
+    width: 100% !important;
+    flex: unset !important;
   }
-  .experience-timeline {
-    padding-left: 0 !important;
+  .about-school-photo {
+    width: 100% !important;
+    height: 72px !important;
+    padding: 12px 24px !important; /* wide & short — NJIT logo looks great at full width */
   }
-  /* Tighten experience cards on very small screens */
+
+  /* Experience tighter on very small screens */
+  .exp-glass-card {
+    padding: 14px 14px !important;
+  }
   .experience-timeline > div {
-    margin-bottom: 28px !important;
+    margin-bottom: 24px !important;
   }
-  /* Project image height on small screens */
+
+  /* Project image shorter on small phones */
   .project-card > div:first-child {
-    height: 180px !important;
+    height: 185px !important;
   }
+
+  /* Skills canvas */
+  .skills-canvas-wrap { height: 360px !important; }
 }

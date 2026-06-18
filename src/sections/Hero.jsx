@@ -3,14 +3,15 @@ import { Typewriter } from "react-simple-typewriter";
 import { useEffect, useRef, useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { FiChevronDown } from "react-icons/fi";
 
 import Sun from "../components/Sun";
 import Hero3D from "../components/Hero3D";
 
 const STATS = [
-  { value: "3+",  label: "Yrs Experience" },
-  { value: "10+", label: "Projects Built"  },
-  { value: "3",   label: "Companies"       },
+  { target: 3,  suffix: "+", label: "Yrs Experience" },
+  { target: 10, suffix: "+", label: "Projects Built"  },
+  { target: 3,  suffix: "",  label: "Companies"       },
 ];
 
 const SOCIALS = [
@@ -20,21 +21,45 @@ const SOCIALS = [
 ];
 
 export default function Hero() {
-  // useRef so mouse updates don't trigger re-renders — R3F reads it each frame
-  const mouse      = useRef({ x: 0, y: 0 });
-  const [glowPos, setGlowPos] = useState({ x: 0, y: 0 });
+  const mouse    = useRef({ x: 0, y: 0 });
+  const glowRef  = useRef(null);
+
+  // Stat count-up
+  const [counts, setCounts] = useState([0, 0, 0]);
 
   useEffect(() => {
+    // Mouse glow — direct DOM update, no re-render
     const move = (e) => {
-      // Normalise to -1 → 1 for R3F
       mouse.current = {
         x:  (e.clientX / window.innerWidth)  * 2 - 1,
         y: -(e.clientY / window.innerHeight) * 2 + 1,
       };
-      setGlowPos({ x: e.clientX, y: e.clientY });
+      if (glowRef.current) {
+        glowRef.current.style.left = `${e.clientX - 220}px`;
+        glowRef.current.style.top  = `${e.clientY - 220}px`;
+      }
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  useEffect(() => {
+    // Count-up: starts after hero content fades in (~700ms)
+    const timeouts = STATS.map((stat, i) => {
+      return setTimeout(() => {
+        let current = 0;
+        const step = setInterval(() => {
+          current++;
+          setCounts(prev => {
+            const next = [...prev];
+            next[i] = current;
+            return next;
+          });
+          if (current >= stat.target) clearInterval(step);
+        }, stat.target <= 3 ? 140 : 70);
+      }, 700 + i * 180);
+    });
+    return () => timeouts.forEach(clearTimeout);
   }, []);
 
   return (
@@ -50,19 +75,21 @@ export default function Hero() {
     >
       <Sun />
 
-      {/* Cursor glow */}
-      <div style={{
-        position: "absolute",
-        left: glowPos.x - 220,
-        top:  glowPos.y - 220,
-        width: 440, height: 440,
-        background: "rgba(59,130,246,0.07)",
-        filter: "blur(110px)",
-        borderRadius: "50%",
-        pointerEvents: "none",
-        zIndex: 1,
-        transition: "left 0.08s linear, top 0.08s linear",
-      }} />
+      {/* Cursor glow — DOM-updated, no state */}
+      <div
+        ref={glowRef}
+        style={{
+          position: "absolute",
+          left: -440,
+          top: -440,
+          width: 440, height: 440,
+          background: "rgba(59,130,246,0.07)",
+          filter: "blur(110px)",
+          borderRadius: "50%",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
 
       {/* ── GRID ── */}
       <div
@@ -146,8 +173,10 @@ export default function Hero() {
           >
             <Typewriter
               words={[
-                "Software Engineer",
+                "Operations & System Analyst",
                 "Full Stack Developer",
+                "Software Engineer",
+                "Systems Engineer",
                 "Data Analyst",
                 "Backend Architect",
               ]}
@@ -169,14 +198,14 @@ export default function Hero() {
               fontSize: "15.5px",
               color: "rgba(255,255,255,0.52)",
               lineHeight: 1.85,
-              maxWidth: "430px",
+              maxWidth: "min(430px, 100%)",
             }}
           >
             I build scalable, real-world web applications — from React interfaces
             and REST APIs to cloud infrastructure and data pipelines.
           </motion.p>
 
-          {/* Stats row */}
+          {/* Stats row — count-up */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -187,7 +216,7 @@ export default function Hero() {
             {STATS.map((s, i) => (
               <div key={i}>
                 <p style={{ fontSize: "28px", fontWeight: 700, color: "#fff", lineHeight: 1 }}>
-                  {s.value}
+                  {counts[i]}{s.suffix}
                 </p>
                 <p style={{ fontSize: "11.5px", color: "rgba(255,255,255,0.35)", marginTop: "5px", letterSpacing: "0.03em" }}>
                   {s.label}
@@ -285,10 +314,48 @@ export default function Hero() {
         pointerEvents: "none", zIndex: 3,
       }} />
 
+      {/* Scroll-down indicator */}
+      <motion.a
+        href="#about"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.0, duration: 0.6 }}
+        style={{
+          position: "absolute",
+          bottom: "52px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "4px",
+          textDecoration: "none",
+          color: "rgba(255,255,255,0.28)",
+        }}
+      >
+        <span style={{
+          fontSize: "10px",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          fontFamily: "monospace",
+        }}>
+          scroll
+        </span>
+        <FiChevronDown
+          size={18}
+          style={{ animation: "scrollBounce 2s ease-in-out infinite" }}
+        />
+      </motion.a>
+
       <style>{`
         @keyframes heroPulseDot {
           0%,100% { opacity:1; transform:scale(1); }
           50%     { opacity:0.5; transform:scale(0.82); }
+        }
+        @keyframes scrollBounce {
+          0%, 100% { transform: translateY(0); opacity: 0.55; }
+          50%       { transform: translateY(5px); opacity: 1; }
         }
         @media (max-width: 900px) {
           .hero-grid {

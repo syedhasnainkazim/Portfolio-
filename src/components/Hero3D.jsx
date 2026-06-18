@@ -7,7 +7,7 @@ import * as THREE from "three";
 function Asteroid({ mouse }) {
   const groupRef = useRef();
 
-  const { geometry, colors } = useMemo(() => {
+  const geometry = useMemo(() => {
     const geo = new THREE.SphereGeometry(1.0, 80, 80);
     const pos = geo.attributes.position;
     const count = pos.count;
@@ -94,7 +94,7 @@ function Asteroid({ mouse }) {
 
     geo.computeVertexNormals();
     geo.setAttribute("color", new THREE.BufferAttribute(colArr, 3));
-    return { geometry: geo, colors: colArr };
+    return geo;
   }, []);
 
   useFrame(({ clock }) => {
@@ -133,21 +133,25 @@ function Asteroid({ mouse }) {
 }
 
 // ── Debris / dust ─────────────────────────────────────────────────────────────
+// Computed once at module load — positions are random but fixed for the session,
+// so they live outside the component to keep render pure.
+const DEBRIS_POSITIONS = (() => {
+  const count = 300;
+  const pos = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    const r = 3.0 + Math.random() * 4.5;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    pos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+    pos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+    pos[i*3+2] = r * Math.cos(phi);
+  }
+  return pos;
+})();
+
 function Debris() {
   const ref = useRef();
-  const positions = useMemo(() => {
-    const count = 300;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 3.0 + Math.random() * 4.5;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i*3]   = r * Math.sin(phi) * Math.cos(theta);
-      pos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i*3+2] = r * Math.cos(phi);
-    }
-    return pos;
-  }, []);
+  const positions = DEBRIS_POSITIONS;
 
   useFrame(({ clock }) => {
     if (ref.current) {

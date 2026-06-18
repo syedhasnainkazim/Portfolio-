@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function randomBetween(a, b) {
   return a + Math.random() * (b - a);
@@ -16,17 +16,14 @@ function generateStars(w, h) {
     let size, twinkleAnim, glow;
 
     if (roll > 0.97) {
-      // bright foreground star
       size = randomBetween(2.2, 3.4);
       twinkleAnim = "twinkle-bright";
       glow = true;
     } else if (roll > 0.84) {
-      // medium star
       size = randomBetween(1.1, 2.1);
       twinkleAnim = "twinkle-mid";
       glow = false;
     } else {
-      // tiny distant star
       size = randomBetween(0.4, 1.1);
       twinkleAnim = "twinkle-faint";
       glow = false;
@@ -45,22 +42,30 @@ function generateStars(w, h) {
   });
 }
 
+const STARS = generateStars(window.innerWidth, window.innerHeight);
+
 export default function Background() {
-  const [stars, setStars] = useState([]);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [stars] = useState(STARS);
+  const bgRef       = useRef(null);
+  const spotlightRef = useRef(null);
 
   useEffect(() => {
-    setStars(generateStars(window.innerWidth, window.innerHeight));
-  }, []);
-
-  useEffect(() => {
-    const move = (e) => setMouse({ x: e.clientX, y: e.clientY });
+    const move = (e) => {
+      if (bgRef.current) {
+        bgRef.current.style.transform = `translate(${e.clientX * 0.003}px, ${e.clientY * 0.003}px)`;
+      }
+      if (spotlightRef.current) {
+        spotlightRef.current.style.left = `${e.clientX - 200}px`;
+        spotlightRef.current.style.top  = `${e.clientY - 200}px`;
+      }
+    };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
   return (
     <div
+      ref={bgRef}
       style={{
         position: "fixed",
         inset: 0,
@@ -71,11 +76,9 @@ export default function Background() {
           radial-gradient(ellipse at 85% 15%, rgba(10,25,80,0.5), transparent 50%),
           #03000e
         `,
-        transform: `translate(${mouse.x * 0.003}px, ${mouse.y * 0.003}px)`,
         transition: "transform 0.5s ease-out",
       }}
     >
-      {/* Stars */}
       {stars.map((star, i) => (
         <div
           key={i}
@@ -99,7 +102,6 @@ export default function Background() {
         />
       ))}
 
-      {/* Deep space nebula tones */}
       <div style={{
         position: "absolute",
         top: "10%",
@@ -123,18 +125,20 @@ export default function Background() {
         pointerEvents: "none",
       }} />
 
-      {/* Mouse spotlight */}
-      <div style={{
-        position: "absolute",
-        left: mouse.x - 200,
-        top: mouse.y - 200,
-        width: "400px",
-        height: "400px",
-        background: "radial-gradient(circle, rgba(255,255,255,0.035), transparent 65%)",
-        filter: "blur(60px)",
-        pointerEvents: "none",
-        transition: "left 0.08s linear, top 0.08s linear",
-      }} />
+      {/* Mouse spotlight — updated via ref, no state re-render */}
+      <div
+        ref={spotlightRef}
+        style={{
+          position: "absolute",
+          left: -400,
+          top: -400,
+          width: "400px",
+          height: "400px",
+          background: "radial-gradient(circle, rgba(255,255,255,0.035), transparent 65%)",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+        }}
+      />
 
       <style>{`
         @keyframes twinkle-faint {

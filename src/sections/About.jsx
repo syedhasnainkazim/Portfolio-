@@ -1,5 +1,37 @@
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
+import {
+  SiPython, SiReact, SiNodedotjs, SiPostgresql, SiDocker,
+} from "react-icons/si";
+import { FaAws } from "react-icons/fa";
+import {
+  FiDatabase, FiCode, FiLayers, FiActivity,
+} from "react-icons/fi";
+import { MdOutlineSpeed } from "react-icons/md";
+
+const STATS = [
+  { value: "2019", label: "First line of code" },
+  { value: "3+",   label: "Companies worked at" },
+  { value: "10+",  label: "Projects shipped" },
+  { value: "Dec '26", label: "B.S. CS graduation" },
+];
+
+const INTERESTS = [
+  { label: "Distributed Systems",    Icon: FiLayers    },
+  { label: "Data Pipelines",         Icon: FiDatabase  },
+  { label: "REST & API Design",      Icon: FiCode      },
+  { label: "Performance Engineering",Icon: MdOutlineSpeed },
+  { label: "Systems Architecture",   Icon: FiActivity  },
+];
+
+const TECH_ICONS = [
+  { Icon: SiPython,            color: "#60a5fa", label: "Python"     },
+  { Icon: SiReact,             color: "#67e8f9", label: "React"      },
+  { Icon: SiNodedotjs,         color: "#4ade80", label: "Node.js"    },
+  { Icon: SiPostgresql,        color: "#fb923c", label: "PostgreSQL" },
+  { Icon: SiDocker,            color: "#38bdf8", label: "Docker"     },
+  { Icon: FaAws,               color: "#fcd34d", label: "AWS"        },
+];
 
 export default function About() {
   return (
@@ -7,6 +39,22 @@ export default function About() {
       <div className="container">
 
         {/* HEADER */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          style={{
+            fontFamily: "monospace",
+            fontSize: "13px",
+            color: "#60a5fa",
+            letterSpacing: "0.06em",
+            marginBottom: "12px",
+          }}
+        >
+          {"// who I am"}
+        </motion.p>
+
         <motion.h1
           className="section-title"
           initial={{ opacity: 0, y: 40 }}
@@ -60,10 +108,101 @@ export default function About() {
               problems — not just demos that look good in a browser.
             </p>
             <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.75)", lineHeight: "1.8" }}>
-              Outside of work I'm either deep in a side project, reading about
-              distributed systems, or finding new ways to make something faster
-              and more reliable.
+              When I'm not building production systems I'm reading about distributed
+              databases, experimenting with ML models, or profiling queries to squeeze
+              out the last few milliseconds.
             </p>
+
+            {/* ── STAT ROW ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.28 }}
+              viewport={{ once: true }}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: "10px",
+                marginTop: "4px",
+              }}
+            >
+              {STATS.map((s, i) => (
+                <div
+                  key={i}
+                  className="glass"
+                  style={{
+                    padding: "14px 16px",
+                    borderRadius: "14px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "3px",
+                  }}
+                >
+                  <span style={{
+                    fontSize: "22px",
+                    fontWeight: 800,
+                    lineHeight: 1,
+                    background: "linear-gradient(120deg, #fff 20%, #93c5fd 80%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}>
+                    {s.value}
+                  </span>
+                  <span style={{
+                    fontSize: "11.5px",
+                    color: "rgba(255,255,255,0.36)",
+                    letterSpacing: "0.01em",
+                  }}>
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* ── INTERESTS ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.36 }}
+              viewport={{ once: true }}
+            >
+              <p style={{
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.28)",
+                textTransform: "uppercase",
+                letterSpacing: "0.10em",
+                marginBottom: "10px",
+                fontFamily: "monospace",
+              }}>
+                What I care about
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {INTERESTS.map(({ label, Icon }, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.88 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.38 + i * 0.06 }}
+                    viewport={{ once: true }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "7px",
+                      padding: "6px 12px",
+                      borderRadius: "999px",
+                      background: "rgba(165,180,252,0.07)",
+                      border: "1px solid rgba(165,180,252,0.14)",
+                      fontSize: "12.5px",
+                      color: "rgba(255,255,255,0.60)",
+                    }}
+                  >
+                    <Icon size={12} color="#a5b4fc" />
+                    {label}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
 
             {/* EDUCATION CARD */}
             <Tilt
@@ -83,7 +222,7 @@ export default function About() {
               className="glass"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
               viewport={{ once: true }}
               style={{ padding: "22px 24px" }}
             >
@@ -214,11 +353,56 @@ export default function About() {
                 }}
               />
             </div>
+
+            {/* Tech icons row */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="glass"
+              style={{
+                padding: "16px 20px",
+                borderRadius: "14px",
+              }}
+            >
+              <p style={{
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.28)",
+                textTransform: "uppercase",
+                letterSpacing: "0.10em",
+                marginBottom: "12px",
+                fontFamily: "monospace",
+              }}>
+                Daily drivers
+              </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                {TECH_ICONS.map(({ Icon, color, label }, i) => (
+                  <div
+                    key={i}
+                    title={label}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}
+                  >
+                    <div style={{
+                      width: "36px", height: "36px",
+                      borderRadius: "10px",
+                      background: `${color}12`,
+                      border: `1px solid ${color}28`,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                    }}>
+                      <Icon size={18} color={color} />
+                    </div>
+                    <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.28)" }}>
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
         </div>
       </div>
-
     </section>
   );
 }

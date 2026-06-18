@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const STAR_COUNT = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches ? 2 : 4;
 
@@ -36,18 +36,15 @@ function generateStar(id) {
   return { id, startX, startY, angle, length, travel, duration, restDelay };
 }
 
-export default function ShootingStars() {
-  const [stars, setStars] = useState([]);
+// Stagger the initial appearance so they don't all streak at once.
+// Built once at module load to keep render pure.
+const INITIAL_STARS = Array.from({ length: STAR_COUNT }, (_, i) => {
+  const s = generateStar(`init-${i}-${Date.now()}`);
+  return { ...s, restDelay: Math.random() * 6 };
+});
 
-  useEffect(() => {
-    // Stagger the initial appearance so they don't all streak at once
-    setStars(
-      Array.from({ length: STAR_COUNT }, (_, i) => {
-        const s = generateStar(`init-${i}-${Date.now()}`);
-        return { ...s, restDelay: Math.random() * 6 };
-      })
-    );
-  }, []);
+export default function ShootingStars() {
+  const [stars, setStars] = useState(INITIAL_STARS);
 
   // When a star finishes its single run, respawn it fresh after a random rest
   const respawn = (slot) => {

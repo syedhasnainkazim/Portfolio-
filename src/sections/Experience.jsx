@@ -59,6 +59,22 @@ export default function Experience() {
       <div className="container">
 
         {/* HEADER */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          style={{
+            fontFamily: "monospace",
+            fontSize: "13px",
+            color: "#60a5fa",
+            letterSpacing: "0.06em",
+            marginBottom: "12px",
+          }}
+        >
+          {"// where I've worked"}
+        </motion.p>
+
         <motion.h1
           className="section-title"
           initial={{ opacity: 0, y: 40 }}
@@ -96,6 +112,7 @@ export default function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.55, delay: index * 0.15 }}
               viewport={{ once: true }}
+              className="exp-dot-gap"
               style={{ display: "flex", gap: "24px", marginBottom: "40px", position: "relative" }}
             >
               {/* Dot — centered on the vertical line (line left=22, dot width=16, so marginLeft=14 centers it) */}
@@ -127,7 +144,7 @@ export default function Experience() {
                 style={{ width: "100%", borderRadius: "20px" }}
               >
               <div
-                className="glass"
+                className="glass exp-glass-card"
                 style={{
                   padding: "24px 28px",
                   width: "100%",
