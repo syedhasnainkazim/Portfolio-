@@ -21,7 +21,6 @@ const SOCIALS = [
 ];
 
 export default function Hero() {
-  const mouse    = useRef({ x: 0, y: 0 });
   const glowRef  = useRef(null);
 
   // Stat count-up
@@ -30,10 +29,6 @@ export default function Hero() {
   useEffect(() => {
     // Mouse glow — direct DOM update, no re-render
     const move = (e) => {
-      mouse.current = {
-        x:  (e.clientX / window.innerWidth)  * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1,
-      };
       if (glowRef.current) {
         glowRef.current.style.left = `${e.clientX - 220}px`;
         glowRef.current.style.top  = `${e.clientY - 220}px`;
@@ -301,7 +296,7 @@ export default function Hero() {
             width: "100%",
           }}
         >
-          <Hero3D mouse={mouse} />
+          <Hero3D />
         </motion.div>
 
       </div>
