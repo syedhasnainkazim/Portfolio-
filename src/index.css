@@ -423,9 +423,6 @@ a.glass:focus-visible {
     gap: 16px !important;
   }
 
-  /* ── Skills canvas height ── */
-  .skills-canvas-wrap { height: 400px !important; }
-
   /* ── Contact: stack columns ── */
   .contact-grid {
     grid-template-columns: 1fr !important;
@@ -495,7 +492,4 @@ a.glass:focus-visible {
   .project-card > div:first-child {
     height: 185px !important;
   }
-
-  /* Skills canvas */
-  .skills-canvas-wrap { height: 360px !important; }
 }
